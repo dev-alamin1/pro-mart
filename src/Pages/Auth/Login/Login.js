@@ -7,7 +7,7 @@ import useToken from "../../../hooks/useToken";
 export const Login = () => {
 
   //authinfo from contex 
-  const {loginWithEmailAndPassword} = useContext(AuthContext)
+  const {loginWithEmailAndPassword,loginWithGoogleProvider} = useContext(AuthContext)
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [loginError,setLoginError] = useState('');
 
@@ -42,6 +42,44 @@ export const Login = () => {
       })
       .catch(error=>setLoginError(error.message))
   }
+
+  const loginWithGoogleProviderHandler = ()=>{
+
+             loginWithGoogleProvider()
+             .then((result)=>{
+               const user = result.user;
+               saveUserInfoInDatabase(user.displayName,user.email,user.photoURL)
+             })
+  }
+
+
+   // save user info when user successfully register 
+
+   const saveUserInfoInDatabase = (name, email,photoURL)=>{
+
+    const user = {
+      name :name,
+      email:email,
+      role: 'buyer',
+      photoURL:photoURL
+    }
+    console.log(user)
+   
+    fetch('http://localhost:5000/addUser',{
+      method:'POST',
+      headers:{
+        'content-type':'application/json'
+      },
+      body:JSON.stringify(user)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+       toast.success("User login success")
+       setLoginUserEmail(email)
+    })
+}
+
+
     return (
       <div className="relative">
         <img
@@ -120,8 +158,8 @@ export const Login = () => {
                     </div>
 
                     <div className="mt-4 mb-2 sm:mb-4">
-                      <button
-                        type="submit"
+                      <button onClick={loginWithGoogleProviderHandler}
+                        type="button"
                         className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-purple-400 hover:bg-purple-700 hover:text-white focus:shadow-lg focus:outline-none"
                       >
                         Login With Google
