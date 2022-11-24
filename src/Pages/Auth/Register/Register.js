@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/Authprovider";
 import toast  from 'react-hot-toast';
+import useToken from "../../../hooks/useToken";
 
 export const Register = () => {
 
@@ -21,6 +22,13 @@ export const Register = () => {
 
     const [registerError,setRegisterError] = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [token] = useToken(createdUserEmail);
+    const navigate = useNavigate();
+
+    if(token)
+    {
+      navigate('/')
+    }
 
     // register handler 
     const registerHandler = data =>{
