@@ -1,6 +1,47 @@
-import { Link } from "react-router-dom";
-
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../Context/Authprovider";
+import useToken from "../../../hooks/useToken";
 export const Login = () => {
+
+  //authinfo from contex 
+  const {loginWithEmailAndPassword} = useContext(AuthContext)
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [loginError,setLoginError] = useState('');
+
+  /*
+       user login korar agei to email address pabe na, login hoye gele tar por e 
+       useToken er moddhe user er email dite hobe. tokhon email peye gele, token er bebosta
+       korte parbe .. but problem holo, kivabe email ta dibo? ai khetre amara,
+       1ti state er help nite pari. suruetei state er value thakbe emepty, empty hole useToken
+       kaj korbena. er por , userlogin  hoye gele, sei state er moddhe user er email set kore dile
+       , tokhon kintu sei state ta useToken er vitore thakar karone, email ta peye jabe
+       email pele, token pabe, token pele navigate hobe 
+   */
+
+  const [loginUserEmail,setLoginUserEmail] = useState('');
+  const [token] = useToken(loginUserEmail);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+
+  if(token)
+  {
+    navigate(from,{replace:true})
+  }
+
+  //handler user login
+  const userLogin = (data)=>{
+      console.log(data)
+       loginWithEmailAndPassword(data.email,data.password)
+      .then(result=>{
+         toast.success("User login success ")
+         setLoginUserEmail(data.email)
+      })
+      .catch(error=>setLoginError(error.message))
+  }
     return (
       <div className="relative">
         <img
@@ -30,7 +71,7 @@ export const Login = () => {
               <div className="w-full max-w-xl xl:px-8 xl:w-5/12">
                 <div className="bg-white rounded shadow-2xl p-7 sm:p-10">
                   
-                  <form>
+                  <form onSubmit={handleSubmit(userLogin)}>
                     <div className="mb-1 sm:mb-2">
                       <label
                         htmlFor="email"
@@ -38,32 +79,37 @@ export const Login = () => {
                       >
                        Email
                       </label>
-                      <input
-                        placeholder="John"
-                        required
+                      <input {...register("email",{required:"Email is required !"})}
+                        placeholder="email"
+                      
                         type="text"
                         className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                        id="email"
-                        name="email"
+                        
                       />
+                      {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
+
                     </div>
                     <div className="mb-1 sm:mb-2">
                       <label
-                        htmlFor="lastName"
+                        htmlFor="password"
                         className="inline-block mb-1 font-medium"
                       >
                         Password
                       </label>
-                      <input
-                        placeholder="Doe"
-                        required
-                        type="text"
+                      <input {...register("password",{required:'Password is required !'})}
+                        placeholder="password"
+                       
+                        type="password"
                         className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                        id="password"
-                        name="password"
+                        
                       />
+                      {errors.password && <p className="text-red-500">{errors.password.message}</p>}
                     </div>
                    
+                   {
+                      loginError && <p className="text-red-500">{loginError}</p>
+                   }
+
                     <div className="mt-4 mb-2 sm:mb-4">
                       <button
                         type="submit"
