@@ -10,17 +10,8 @@ const Main = () => {
         <div>
             <div className='md:px-20 px-10'>
                 <Navbar/>
-                <div className='flex'>
-                    <div className='w-1/2 bg-slate-400'>
-                        <Outlet/>
-                    </div>
-
-                    <div className='bg-red-400'>
-                        category
-                    </div>
-                </div>
-
-               <Footer/>
+                <Outlet/>
+                <Footer/>
             </div>
         </div>
     );
