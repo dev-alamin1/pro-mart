@@ -8,7 +8,8 @@ import MyProducts from "../../Pages/Dashboard/Seller/MyProducts/MyProducts";
 import MyOrders from "../../Pages/Dashboard/Buyer/Myorders/MyOrders";
 import AllSeller from "../../Pages/Dashboard/Admin/AllSeller/AllSeller";
 import { Login } from "../../Pages/Auth/Login/Login";
-import Register from "../../Pages/Auth/Register/Register";
+import { Register } from "../../Pages/Auth/Register/Register";
+
 
 
 
