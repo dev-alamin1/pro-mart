@@ -1,10 +1,13 @@
+import { RouterProvider } from 'react-router-dom';
 import './App.css';
+import router from './Routes/Routes/Routes';
 
 function App() {
   return (
-    <div className="App">
-      <h2 className='text-5xl'>Promart project starter </h2>
-    </div>
+    
+    <RouterProvider router={router}>
+
+    </RouterProvider>
   );
 }
 
