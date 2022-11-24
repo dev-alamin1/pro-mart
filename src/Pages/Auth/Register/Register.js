@@ -43,7 +43,7 @@ export const Register = () => {
         updateNameAndPhoto(data.name,data.photoURL)
             .then(() => {
               
-               saveUserInfoInDatabase(data.name,data.email,data.role,data.photoURL)
+               saveUserInfoInDatabase(data.name,data.email,data.photoURL,data.role)
                
              })
             .catch(err => console.log(err));
@@ -69,15 +69,16 @@ export const Register = () => {
   
     // save user info when user successfully register 
 
-    const saveUserInfoInDatabase = (name, email,role='buyer',photoURL)=>{
+    const saveUserInfoInDatabase = (name, email,photoURL,role)=>{
 
       const user = {
         name :name,
         email:email,
-        role: role,
-        photoURL:photoURL
+        photoURL:photoURL,
+        role: typeof role == "undefined" ? 'buyer' : role,
+        
       }
-     
+
       fetch('http://localhost:5000/addUser',{
         method:'POST',
         headers:{

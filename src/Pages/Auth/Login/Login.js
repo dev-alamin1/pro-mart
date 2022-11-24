@@ -22,6 +22,7 @@ export const Login = () => {
    */
 
   const [loginUserEmail,setLoginUserEmail] = useState('');
+  
   const [token] = useToken(loginUserEmail);
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,14 +35,16 @@ export const Login = () => {
 
   //handler user login
   const userLogin = (data)=>{
-      console.log(data)
        loginWithEmailAndPassword(data.email,data.password)
       .then(result=>{
-         toast.success("User login success ")
-         setLoginUserEmail(data.email)
+
+        setLoginUserEmail(data.email)
+        console.log(data.email)
+        toast.success("User login success ")
       })
       .catch(error=>setLoginError(error.message))
   }
+
 
   const loginWithGoogleProviderHandler = ()=>{
 
@@ -51,7 +54,6 @@ export const Login = () => {
                saveUserInfoInDatabase(user.displayName,user.email,user.photoURL)
              })
   }
-
 
    // save user info when user successfully register 
 
