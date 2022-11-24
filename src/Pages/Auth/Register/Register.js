@@ -7,8 +7,20 @@ import toast  from 'react-hot-toast';
 export const Register = () => {
 
     const {registerWithEmailAndPassword,updateNameAndPhoto} = useContext(AuthContext);
-    const { register, handleSubmit, formState: { errors } ,reset} = useForm();
+    const { register, handleSubmit, formState: { errors }} = useForm();
+
+     /*
+       user register korar agei to email address pabe na, register hoye gele tar por e 
+       useToken er moddhe user er email dite hobe. tokhon email peye gele token er bebosta
+       korte parbe .. but problem holo, kivabe email ta dibo? ai khetre amara,
+       1ti state er help nite pari. suruetei state er value thakbe emepty, empty hole useToken
+       kaj korbena. er por , userregister hoye gele, sei state er moddhe user er email set kore dile
+       , tokhon kintu sei state ta useToken er vitore thakar karone, email ta peye jabe
+       email pele, token pabe, token pele navigate hobe 
+   */
+
     const [registerError,setRegisterError] = useState('');
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
 
     // register handler 
     const registerHandler = data =>{
@@ -22,8 +34,8 @@ export const Register = () => {
       
         updateNameAndPhoto(data.name,data.photoURL)
             .then(() => {
-              // user info store in database 
-               toast.success("User register success")
+              
+               saveUserInfoInDatabase(data.name,data.email,data.role,data.photoURL)
                
              })
             .catch(err => console.log(err));
@@ -34,6 +46,33 @@ export const Register = () => {
         setRegisterError(error.message)
     });
 
+  }
+
+  
+    // save user info when user successfully register 
+
+    const saveUserInfoInDatabase = (name, email,role,photoURL)=>{
+
+      const user = {
+        name :name,
+        email:email,
+        role: role,
+        photoURL:photoURL
+      }
+     
+      fetch('http://localhost:5000/addUser',{
+        method:'POST',
+        headers:{
+          'content-type':'application/json'
+        },
+        body:JSON.stringify(user)
+      })
+      .then(res=>res.json())
+      .then(data=>{
+         toast.success("User register success")
+         setCreatedUserEmail(email)
+         
+      })
   }
     
 
@@ -134,6 +173,10 @@ export const Register = () => {
                     </select>
                   </div>
 
+                  {/* firebase general errors  */}
+                  {
+                     registerError && <p className="text-red-600">{registerError}</p>
+                   }
                   <div className="mt-4 mb-2 sm:mb-4">
                     <button
                       type="submit"
@@ -143,9 +186,7 @@ export const Register = () => {
                     </button>
                   </div>
 
-                   {
-                     registerError && <p className="text-red-600">{registerError}</p>
-                   }
+                 
 
                   <div className="mt-4 mb-2 sm:mb-4">
                     <button
