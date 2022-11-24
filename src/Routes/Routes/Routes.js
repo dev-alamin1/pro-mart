@@ -7,6 +7,9 @@ import AddProduct from "../../Pages/Dashboard/Seller/AddProduct/AddProduct";
 import MyProducts from "../../Pages/Dashboard/Seller/MyProducts/MyProducts";
 import MyOrders from "../../Pages/Dashboard/Buyer/Myorders/MyOrders";
 import AllSeller from "../../Pages/Dashboard/Admin/AllSeller/AllSeller";
+import { Login } from "../../Pages/Auth/Login/Login";
+import Register from "../../Pages/Auth/Register/Register";
+
 
 
 const router = createBrowserRouter([
@@ -17,6 +20,14 @@ const router = createBrowserRouter([
             {
                 path:'/',
                 element:<Home/>
+            },
+            {
+                path:'/login',
+                element:<Login/>
+            },
+            {
+                path:'/register',
+                element:<Register/>
             }
         ]
     },

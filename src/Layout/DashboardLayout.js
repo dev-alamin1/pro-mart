@@ -14,7 +14,7 @@ const DashboardLayout = () => {
             <div className="border md:h-72 shadow-lg rounded-md">
             <ul className="menu bg-base-100 md:w-56  p-2 rounded-box">
 
-              <li>
+              <li className="mb-2">
                 <Link to="/dashboard/allseller">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@ const DashboardLayout = () => {
                 </Link>
               </li>
 
-              <li>
+              <li className="mb-2">
                 <Link to="/dashboard/allbuyer">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@ const DashboardLayout = () => {
                 </Link>
               </li>
 
-              <li>
+              <li className="mb-2">
                 <Link to="/dashboard/addproduct">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ const DashboardLayout = () => {
                 </Link>
               </li>
 
-              <li>
+              <li className="mb-2">
                 <Link to="/dashboard/myproducts">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

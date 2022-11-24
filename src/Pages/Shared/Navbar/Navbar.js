@@ -46,12 +46,22 @@ const Navbar = () => {
           </li>
           <li>
             <Link
-              href="/"
-              aria-label="Sign up"
-              title="Signup"
+              to="/login"
+              aria-label="Login"
+              title="login"
               className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
             >
-              Sign up
+              Login
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              aria-label="logout"
+              title="logout"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            >
+              Logout
             </Link>
           </li>
   </>
