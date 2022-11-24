@@ -1,11 +1,23 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/Authprovider";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // receive user auth info from context api
-  const { user } = useContext(AuthContext);
+  const { user,logOut} = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  // user logout 
+  const logoutHandler = ()=>{
+      logOut()
+      .then(()=>{
+          toast.success("User logout success ")
+          navigate('/')
+      })
+      .catch((error) => console.log(error));
+  }
 
   const navLi = (
     <>
@@ -52,7 +64,7 @@ const Navbar = () => {
 
       {user?.email ? (
         <li>
-          <Link
+          <Link onClick={logoutHandler}
             aria-label="logout"
             title="logout"
             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
