@@ -1,9 +1,40 @@
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../Context/Authprovider";
+import toast  from 'react-hot-toast';
 
 export const Register = () => {
 
-    // register handler 
+    const {registerWithEmailAndPassword,updateNameAndPhoto} = useContext(AuthContext);
+    const { register, handleSubmit, formState: { errors } ,reset} = useForm();
+    const [registerError,setRegisterError] = useState('');
 
+    // register handler 
+    const registerHandler = data =>{
+     
+      setRegisterError('');
+      console.log(data)
+      registerWithEmailAndPassword(data.email,data.password)
+      .then(result=>{
+
+        const user = result.user;
+      
+        updateNameAndPhoto(data.name,data.photoURL)
+            .then(() => {
+              // user info store in database 
+               toast.success("User register success")
+               
+             })
+            .catch(err => console.log(err));
+          console.log(user)
+    })
+    .catch(error => {
+        console.log(error)
+        setRegisterError(error.message)
+    });
+
+  }
     
 
   return (
@@ -22,39 +53,38 @@ export const Register = () => {
             </div>
             <div className="w-full  xl:px-8 xl:w-5/12">
               <div className="bg-white rounded shadow-2xl p-12">
-                <form>
+                <form onSubmit={handleSubmit(registerHandler)}>
                   <div className="mb-1 sm:mb-2">
                     <label
-                      htmlFor="email"
+                      htmlFor="name"
                       className="inline-block mb-1 font-medium"
                     >
                       Name
                     </label>
-                    <input
+                    <input {...register("name",{ required:" Name is required !" })}
                       placeholder="your name"
-                      required
+                     
                       type="text"
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                      id="name"
-                      name="name"
                     />
+                    {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                   </div>
 
                   <div className="mb-1 sm:mb-2">
                     <label
-                      htmlFor="email"
+                      htmlFor="photoURL"
                       className="inline-block mb-1 font-medium"
                     >
                       Photo Url
                     </label>
-                    <input
+                    <input {...register("photoURL",{ required:" Photo url is required !" })}
                       placeholder="photo url "
-                      required
+                    
                       type="text"
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                      id="photoURL"
-                      name="photoURL"
+                      
                     />
+                     {errors.photoURL && <p className='text-red-500'>{errors.photoURL?.message}</p>}
                   </div>
 
                   <div className="mb-1 sm:mb-2">
@@ -64,42 +94,42 @@ export const Register = () => {
                     >
                       Email
                     </label>
-                    <input
-                      placeholder="John"
-                      required
-                      type="text"
+                    <input  {...register("email",{ required:" Email url is required !" })}
+                      placeholder="your email"
+                 
+                      type="email"
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                      id="email"
-                      name="email"
+                     
                     />
+                     {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
                   </div>
                   <div className="mb-1 sm:mb-2">
                     <label
-                      htmlFor="lastName"
+                      htmlFor="password"
                       className="inline-block mb-1 font-medium"
                     >
                       Password
                     </label>
-                    <input
-                      placeholder="Doe"
-                      required
-                      type="text"
+                    <input  {...register("password",{ required:" Password  is required !" })}
+                      placeholder="password"
+                     
+                      type="password"
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                      id="password"
-                      name="password"
+                    
                     />
+                      {errors.password && <p className='text-red-500'>{errors.password?.message}</p>}
                   </div>
 
                   <div className="mb-1 sm:mb-2">
                     <label
-                      htmlFor="lastName"
+                      htmlFor="role"
                       className="inline-block mb-1 font-medium"
                     >
                       Register As
                     </label>
 
-                    <select name="role" className="select select-bordered w-full max-w-xs">
-                      <option value="buyer" selected>Buyer</option>
+                    <select  {...register("role",{ required:"User role is required !" })} className="select select-bordered w-full max-w-xs">
+                      <option value="buyer">Buyer</option>
                       <option value="seller">Seller</option>
                     </select>
                   </div>
@@ -112,6 +142,10 @@ export const Register = () => {
                       Register
                     </button>
                   </div>
+
+                   {
+                     registerError && <p className="text-red-600">{registerError}</p>
+                   }
 
                   <div className="mt-4 mb-2 sm:mb-4">
                     <button

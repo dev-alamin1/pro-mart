@@ -1,74 +1,84 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../Context/Authprovider";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navLi = <>
-    <li>
-            <Link
-              href="/"
-              aria-label="Our product"
-              title="Our product"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Product
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/"
-              aria-label="Our product"
-              title="Our product"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Features
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/"
-              aria-label="Product pricing"
-              title="Product pricing"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Pricing
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/dashboard"
-              aria-label="Dashboard"
-              title="Dashboard"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-             Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/login"
-              aria-label="Login"
-              title="login"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Login
-            </Link>
-          </li>
+  // receive user auth info from context api
+  const { user } = useContext(AuthContext);
 
-          <li>
-            <Link
-              aria-label="logout"
-              title="logout"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Logout
-            </Link>
-          </li>
-  </>
+  const navLi = (
+    <>
+      <li>
+        <Link
+          href="/"
+          aria-label="Our product"
+          title="Our product"
+          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+        >
+          Product
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="/"
+          aria-label="Our product"
+          title="Our product"
+          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+        >
+          Features
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="/"
+          aria-label="Product pricing"
+          title="Product pricing"
+          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+        >
+          Pricing
+        </Link>
+      </li>
+      <li>
+        <Link
+          to="/dashboard"
+          aria-label="Dashboard"
+          title="Dashboard"
+          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+        >
+          Dashboard
+        </Link>
+      </li>
+
+      {user?.email ? (
+        <li>
+          <Link
+            aria-label="logout"
+            title="logout"
+            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+          >
+            Logout
+          </Link>
+        </li>
+      ) : (
+        <li>
+          <Link
+            to="/login"
+            aria-label="Login"
+            title="login"
+            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+          >
+            Login
+          </Link>
+        </li>
+      )}
+    </>
+  );
+
   return (
     <div className="py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl">
       <div className="relative flex items-center justify-between">
-         <a
+        <a
           href="/"
           aria-label="Company"
           title="Company"
@@ -87,10 +97,8 @@ const Navbar = () => {
           <span className="ml-2 text-xl text-orange-400 font-bold tracking-wide  uppercase">
             pro mart
           </span>
-         </a>
-        <ul className="flex items-center hidden space-x-8 lg:flex">
-         { navLi}
-        </ul>
+        </a>
+        <ul className="flex items-center hidden space-x-8 lg:flex">{navLi}</ul>
         <div className="lg:hidden">
           <button
             aria-label="Open Menu"
@@ -156,9 +164,7 @@ const Navbar = () => {
                   </div>
                 </div>
                 <nav>
-                  <ul className="space-y-4">
-                    {navLi}
-                  </ul>
+                  <ul className="space-y-4">{navLi}</ul>
                 </nav>
               </div>
             </div>
