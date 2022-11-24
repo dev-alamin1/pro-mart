@@ -7,7 +7,7 @@ import useToken from "../../../hooks/useToken";
 
 export const Register = () => {
 
-    const {registerWithEmailAndPassword,updateNameAndPhoto} = useContext(AuthContext);
+    const {registerWithEmailAndPassword,updateNameAndPhoto,registerWithGoogleProvider} = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors }} = useForm();
 
      /*
@@ -56,10 +56,20 @@ export const Register = () => {
 
   }
 
+
+  const registerWithGoogleProviderHandler = ()=>{
+
+    registerWithGoogleProvider()
+    .then((result)=>{
+      const user = result.user;
+      saveUserInfoInDatabase(user.displayName,user.email,user.photoURL)
+    })
+}
+
   
     // save user info when user successfully register 
 
-    const saveUserInfoInDatabase = (name, email,role,photoURL)=>{
+    const saveUserInfoInDatabase = (name, email,role='buyer',photoURL)=>{
 
       const user = {
         name :name,
@@ -197,8 +207,8 @@ export const Register = () => {
                  
 
                   <div className="mt-4 mb-2 sm:mb-4">
-                    <button
-                      type="submit"
+                    <button onClick={registerWithGoogleProviderHandler}
+                      type="button"
                       className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-purple-400 hover:bg-purple-700 hover:text-white focus:shadow-lg focus:outline-none"
                     >
                       Register With Google
