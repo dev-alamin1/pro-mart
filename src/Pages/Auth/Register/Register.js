@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 
 export const Register = () => {
+
+    // register handler 
+
+    
+
   return (
     <div className="relative">
       <div className="relative">
