@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Product from './Product';
 
 const Products = () => {
     const products = useLoaderData();
-    console.log(products)
+    const [categoryName,setCategoryName] = useState([]);
+    const [categoryDesc,setCategoryDesc] = useState([]);
+
     return (
         <div className="pt-10 pb-2 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl ">
           <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
@@ -13,7 +15,10 @@ const Products = () => {
                 Used {}
               </p>
             </div>
-            <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+            {
+              categoryName && 
+              <>
+              <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
               <span className="relative inline-block">
                 <svg
                   viewBox="0 0 52 24"
@@ -37,19 +42,23 @@ const Products = () => {
                     height="24"
                   />
                 </svg>
-                <span className="relative">The</span>
+                <span className="relative">{categoryName}</span>
               </span>{' '}
-              quick, brown fox jumps over a lazy dog
             </h2>
+
             <p className="text-base text-gray-700 md:text-lg">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque rem aperiam, eaque ipsa quae.
+              {categoryDesc}
             </p>
+
+             </>
+
+            }
+           
           </div>
           <div className="grid max-w-sm gap-5 mb-8 lg:grid-cols-3 sm:mx-auto lg:max-w-full">
            
          {
-            products.map(pro=><Product key={pro._id}/>)
+            products.map(pro=><Product key={pro._id} pro={pro} setCategoryName={setCategoryName} setCategoryDesc={setCategoryDesc}/>)
          }
   
           </div>

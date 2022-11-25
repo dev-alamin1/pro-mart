@@ -1,44 +1,72 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const Product = () => {
+const Product = ({pro,setCategoryName,setCategoryDesc}) => {
+  // pro = product
+  const {brand,category_id,description,
+         location,originalPrice,productImg,
+         productCondition,productName,resalePrice,
+         sellerEmail,sellerMobile,yearOfPurchase,_id
+        } = pro;
+
+        // fetch category info
+        const [categoryInfo,setCategoryInfo] = useState('');
+        const {category_desc,category_name} = categoryInfo ;
+        useEffect(()=>{
+            fetch(`http://localhost:5000/categoryinfo?id=${category_id}`)
+            .then(res=>res.json())
+            .then(data=>setCategoryInfo(data))
+        },[category_id]);
+
+        setCategoryName(category_name);
+        setCategoryDesc(category_desc);
+
     return (
-        <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
+        <div className=" transition-shadow duration-300 bg-white rounded shadow-sm">
         <img
-          src="https://images.pexels.com/photos/139829/pexels-photo-139829.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-          className="object-cover w-full h-64"
+          src={productImg}
+          className=" w-full h-64"
           alt=""
         />
         <div className="p-5 border border-t-0">
           <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
-            <a
-              href="/"
-              className="transition-colors duration-200 text-blue-gray-900 hover:text-deep-purple-accent-700"
-              aria-label="Category"
-              title="traveling"
-            >
-              traveling
-            </a>
-            <span className="text-gray-600">— 28 Dec 2020</span>
+             Category : {category_name} | 
+            <span className="text-gray-600"> Posted on — 28 Dec 2020</span>
           </p>
-          <a
-            href="/"
-            aria-label="Category"
-            title="Film It!"
-            className="inline-block mb-3 text-2xl font-bold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
-          >
-            Film It!
-          </a>
+           
+
+           <p className="mb-2 text-gray-700">
+           <span className='text-red-400 font-bold'>Name</span> : {productName} <br /> <span className='text-red-400 font-bold'>Brand</span> : {brand}
+          </p>
+
           <p className="mb-2 text-gray-700">
-            Sed ut perspiciatis unde omnis iste natus error sit sed quia
-            consequuntur magni voluptatem doloremque.
+            <span className='text-red-400 font-bold'>Original Price</span> : {originalPrice}Tk <br /> <span className='text-orange-500 font-bold'>Resale Price</span> : {resalePrice}Tk
           </p>
-          <a
-            href="/"
-            aria-label=""
-            className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-          >
-            Learn more
-          </a>
+
+          <p className="mb-2 text-gray-700">
+            <span className='text-red-400 font-bold'>Used Time </span> : {yearOfPurchase} years
+          </p>
+
+          <p className="mb-2 text-gray-700">
+            <span className='text-red-400 font-bold'>Product Condition </span> : {productCondition}
+          </p>
+
+          <p className="mb-2 text-gray-700">
+            <span className='text-red-400 font-bold'>Seller Mobile </span> : {sellerMobile}
+          </p>
+
+          <p className="mb-2 text-gray-700">
+            <span className='text-red-400 font-bold'>Seller Email </span> : {sellerEmail}
+          </p>
+
+          <p className="mb-2 text-gray-700">
+            <span className='text-red-400 font-bold'>Location</span> : {location}
+          </p>
+
+          <p className="mb-2 text-gray-700">
+            <span className='text-red-400 font-bold'> Description </span> : {description}
+          </p>
+          <Link> <button className='bg-orange-400 px-2 py-1 rounded-sm hover:bg-orange-600 hover:text-white'> Book Now</button></Link>
         </div>
       </div>
     );
