@@ -9,6 +9,7 @@ import MyOrders from "../../Pages/Dashboard/Buyer/Myorders/MyOrders";
 import AllSeller from "../../Pages/Dashboard/Admin/AllSeller/AllSeller";
 import { Login } from "../../Pages/Auth/Login/Login";
 import { Register } from "../../Pages/Auth/Register/Register";
+import Products from "../../Pages/Home/Products/Products";
 
 
 
@@ -21,6 +22,11 @@ const router = createBrowserRouter([
             {
                 path:'/',
                 element:<Home/>
+            },
+            {
+                path:'/category/:id',
+                loader:({params})=>fetch(`http://localhost:5000/category/${params.id}`),
+                element:<Products/>
             },
             {
                 path:'/login',
