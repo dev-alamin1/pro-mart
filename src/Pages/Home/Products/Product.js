@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Product = ({pro,setCategoryName,setCategoryDesc}) => {
+const Product = ({pro,setCategoryName,setCategoryDesc,setProductFullInfo}) => {
   // pro = product
   const {brand,category_id,description,
          location,originalPrice,productImg,
@@ -66,7 +66,11 @@ const Product = ({pro,setCategoryName,setCategoryDesc}) => {
           <p className="mb-2 text-gray-700">
             <span className='text-red-400 font-bold'> Description </span> : {description}
           </p>
-          <Link> <button className='bg-orange-400 px-2 py-1 rounded-sm hover:bg-orange-600 hover:text-white'> Book Now</button></Link>
+          
+          <label htmlFor="product-booked-modal" onClick={()=>setProductFullInfo(pro)} className='bg-orange-400 px-2 py-1 rounded-sm hover:bg-orange-600 hover:text-white' >
+            Book Now
+         </label>
+
         </div>
       </div>
     );

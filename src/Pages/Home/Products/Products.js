@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Product from './Product';
+import ProductBookedModal from './ProductBookedModal';
 
 const Products = () => {
     const products = useLoaderData();
     const [categoryName,setCategoryName] = useState([]);
     const [categoryDesc,setCategoryDesc] = useState([]);
+
+    const [productFullInfo,setProductFullInfo] = useState({});
+
 
     return (
         <div className="pt-10 pb-2 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl ">
@@ -55,13 +59,22 @@ const Products = () => {
             }
            
           </div>
-          <div className="grid max-w-sm gap-5 mb-8 lg:grid-cols-3 sm:mx-auto lg:max-w-full">
+          <div className="grid  gap-5 mb-8 lg:grid-cols-3 sm:mx-auto w-full">
            
-         {
-            products.map(pro=><Product key={pro._id} pro={pro} setCategoryName={setCategoryName} setCategoryDesc={setCategoryDesc}/>)
-         }
+           {
+            products.map(pro=>
+            <Product key={pro._id} pro={pro} setCategoryName={setCategoryName} 
+            setCategoryDesc={setCategoryDesc} setProductFullInfo ={setProductFullInfo}/>)
+           }
   
           </div>
+
+           {/* booking modal */}
+           {
+             productFullInfo &&  <ProductBookedModal productFullInfo={productFullInfo} 
+             categoryName={categoryName} />
+           }
+
         </div>
       );
 };
