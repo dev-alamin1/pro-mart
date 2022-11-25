@@ -9,6 +9,28 @@ const ProductBookedModal = ({ productFullInfo, categoryName }) => {
   // get user auth info from context
   const { user, loading } = useContext(AuthContext);
 
+  // product book handler 
+  const productBookHandler = (event)=>{
+      event.preventDefault();
+      const form = event.target;
+      const name = form.name.value;
+      const email = form.email.value;
+      const productName = form.productName.value;
+      const productPrice = form.price.value;
+      const phoneNumber = form.phoneNumber.value;
+      const meetLocation = form.meetLocation.value;
+
+      const bookingInfo = {
+        name,email,productName,productPrice,phoneNumber,meetLocation
+      }
+
+      // store booking info in database 
+
+      
+
+
+  }
+
   if (loading) {
     return <div>Loading..</div>;
   }
@@ -30,7 +52,7 @@ const ProductBookedModal = ({ productFullInfo, categoryName }) => {
             ✕
           </label>
           <div>
-            <form>
+            <form onSubmit={productBookHandler}>
               <div className="mb-1 sm:mb-2">
                 <label
                   htmlFor="name"
@@ -41,6 +63,7 @@ const ProductBookedModal = ({ productFullInfo, categoryName }) => {
                 <input
                   defaultValue={user?.displayName}
                   type="text"
+                  name="name"
                   disabled
                   className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                 />
@@ -56,6 +79,7 @@ const ProductBookedModal = ({ productFullInfo, categoryName }) => {
                 <input
                   defaultValue={user?.email}
                   type="text"
+                  name="email"
                   disabled
                   className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                 />
@@ -71,6 +95,7 @@ const ProductBookedModal = ({ productFullInfo, categoryName }) => {
                 <input
                   defaultValue={productName}
                   type="text"
+                  name="productName"
                   disabled
                   className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                 />
@@ -88,6 +113,7 @@ const ProductBookedModal = ({ productFullInfo, categoryName }) => {
                 <input
                   defaultValue={resalePrice}
                   type="text"
+                  name="price"
                   disabled
                   className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                 />
@@ -104,6 +130,7 @@ const ProductBookedModal = ({ productFullInfo, categoryName }) => {
                   placeholder="phone number"
                   type="text"
                   name="phoneNumber"
+                  required
                   className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                 />
               </div>
@@ -116,14 +143,14 @@ const ProductBookedModal = ({ productFullInfo, categoryName }) => {
                 >
                  Meet Location
                 </label> <br />
-                <textarea name="meetLocation" className="textarea textarea-primary w-full" placeholder="location name"></textarea>
+                <textarea required name="meetLocation" className="textarea textarea-primary w-full" placeholder="meet location"></textarea>
               </div>
 
 
               <div className="mt-4 mb-2 sm:mb-4">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center w-full h-12 px-6 text-white font-medium tracking-wide transition duration-200 rounded shadow-md  bg-purple-400 hover:bg-purple-700 hover:text-white focus:shadow-outline focus:outline-none"
+                  className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md  bg-purple-400 hover:bg-purple-700 hover:text-white focus:shadow-outline focus:outline-none"
                 >
                   Book 
                 </button>
