@@ -72,7 +72,7 @@ const Products = () => {
            {/* booking modal */}
            {
              productFullInfo &&  <ProductBookedModal productFullInfo={productFullInfo} 
-             categoryName={categoryName} />
+             categoryName={categoryName} setProductFullInfo={setProductFullInfo} />
            }
 
         </div>

@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { AuthContext } from "../../../Context/Authprovider";
 
-const ProductBookedModal = ({ productFullInfo, categoryName }) => {
+const ProductBookedModal = ({ productFullInfo, categoryName,setProductFullInfo }) => {
    
   // product info destructure 
-    const {productName,resalePrice } = productFullInfo;
+    const {productName,resalePrice,productImg } = productFullInfo;
 
   // get user auth info from context
-  const { user, loading } = useContext(AuthContext);
+  const { user} = useContext(AuthContext);
 
   // product book handler 
   const productBookHandler = (event)=>{
@@ -19,21 +20,38 @@ const ProductBookedModal = ({ productFullInfo, categoryName }) => {
       const productPrice = form.price.value;
       const phoneNumber = form.phoneNumber.value;
       const meetLocation = form.meetLocation.value;
+      const categoryNameInfo = categoryName;
+      
 
       const bookingInfo = {
-        name,email,productName,productPrice,phoneNumber,meetLocation
+        name,email,productName,productPrice,phoneNumber,meetLocation,categoryNameInfo,productImg
       }
 
       // store booking info in database 
 
-      
+      fetch('http://localhost:5000/store/booking/product',{
+        method:'POST',
+        headers:{
+          'content-type':'application/json'
+        },
+        body:JSON.stringify(bookingInfo)
+      })
+      .then(res=>res.json())
+      .then(data=>{
+
+        if(data.acknowledged)
+        {
+
+          setProductFullInfo('');
+          toast.success("Product Booked Success !")
+        }
+        
+      })
 
 
   }
 
-  if (loading) {
-    return <div>Loading..</div>;
-  }
+  
 
   return (
     <div>
@@ -47,7 +65,7 @@ const ProductBookedModal = ({ productFullInfo, categoryName }) => {
         <div className="modal-box relative">
           <label
             htmlFor="product-booked-modal"
-            className="btn btn-sm btn-circle absolute right-2 top-2"
+            className="btn btn-sm btn-circle absolute right-2 top-2" onClick={()=>setProductFullInfo('')}
           >
             ✕
           </label>

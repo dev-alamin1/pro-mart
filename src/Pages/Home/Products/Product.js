@@ -39,10 +39,7 @@ const Product = ({
   setCategoryName(category_name);
   setCategoryDesc(category_desc);
 
-  if(isLoading)
-  {
-    return <div>Loading..</div>
-  }
+ 
 
   return (
     <div className=" transition-shadow duration-300 bg-white rounded shadow-sm">

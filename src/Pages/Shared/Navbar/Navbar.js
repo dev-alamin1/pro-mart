@@ -88,7 +88,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl">
+    <div className="py-5  mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl">
       <div className="relative flex items-center justify-between">
         <a
           href="/"
@@ -115,7 +115,7 @@ const Navbar = () => {
           <button
             aria-label="Open Menu"
             title="Open Menu"
-            className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
+            className="p-2  mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
             onClick={() => setIsMenuOpen(true)}
           >
             <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
@@ -134,8 +134,8 @@ const Navbar = () => {
             </svg>
           </button>
           {isMenuOpen && (
-            <div className="absolute top-0 left-0 w-full">
-              <div className="p-5 bg-white border rounded shadow-sm">
+            <div className=" z-50 absolute top-0 left-0 w-full">
+              <div className="p-5 bg-gray-400 border rounded shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <a
