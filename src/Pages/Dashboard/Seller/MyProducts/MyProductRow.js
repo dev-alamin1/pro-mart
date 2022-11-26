@@ -1,7 +1,9 @@
 import React from 'react';
 
-const MyProductRow = ({porduct,index}) => {
-    const {productName,resalePrice,productImg,sellStatus} = porduct;
+
+const MyProductRow = ({porduct,index,deleteHandler}) => {
+    const {productName,resalePrice,productImg,sellStatus,_id} = porduct;
+
     
     return (
       
@@ -11,12 +13,14 @@ const MyProductRow = ({porduct,index}) => {
            <img src={productImg} alt="" className='w-20' />
         </td>
         <td>{productName}</td>
-        <td>{productName}</td>
         <td>{resalePrice}</td>
-        <td>{sellStatus}</td>
+        <td>{sellStatus === true ? <div className="badge badge-md badge-info">Sold</div> :<div className="badge badge-md badge-warning text-white">Unsold</div>}</td>
+       
         <td>
-             <button className='btn'>Delete</button>
-             <button className='btn'>Advertise</button>
+             <div className='flex gap-2'>
+                <button onClick={()=>deleteHandler(_id)} className='btn btn-sm btn-primary'>Delete</button>
+                <button className='btn btn-sm btn-secondary'>Advertise</button>
+             </div>
         </td>
 
 </tr>

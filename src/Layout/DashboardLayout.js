@@ -25,13 +25,13 @@ const DashboardLayout = () => {
         <div className="md:flex gap-10 mt-10 mb-10">
 
             {/* sidebar */}
-            <div className="border md:h-72 shadow-lg rounded-md mt-14">
-            <ul className="menu bg-base-100 md:w-56  p-2 rounded-box">
+            <div className=" md:h-72  ">
+            <ul className="menu md:w-56">
 
 
              {
                isAdmin && <>
-                   <li className="mb-2">
+                   <li className="border mb-2 bg-green-200">
                 <Link to="/dashboard/allseller">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +51,7 @@ const DashboardLayout = () => {
                 </Link>
               </li>
 
-              <li className="mb-2">
+              <li  className="border mb-1 bg-green-200">
                 <Link to="/dashboard/allbuyer">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +77,7 @@ const DashboardLayout = () => {
 
              {
                 isSeller && <>
-                     <li className="mb-2">
+                     <li  className="border mb-1 bg-green-200">
                 <Link to="/dashboard/addproduct">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@ const DashboardLayout = () => {
                 </Link>
               </li>
 
-              <li className="mb-2">
+              <li  className="border mb-1 bg-green-200">
                 <Link to="/dashboard/myproducts">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +121,7 @@ const DashboardLayout = () => {
 
             {
                isBuyer && <>
-                    <li>
+                    <li className="border mb-1 bg-green-200">
                 <Link to="/dashboard/myorders">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

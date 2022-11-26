@@ -15,7 +15,11 @@ const MyOrders = () => {
             queryKey:['orders',user?.email],
              queryFn:async()=>{
                 
-             const res = await  fetch(`http://localhost:5000/orders?email=${user?.email}`)
+             const res = await  fetch(`http://localhost:5000/orders?email=${user?.email}`,{
+                headers:{
+                    authorization:`bearer ${localStorage.getItem('accessToken')}`
+                }
+             })
              const data = res.json();
              return data;
                 
@@ -26,7 +30,7 @@ const MyOrders = () => {
 
 
     return (
-        <div>
+        <div className='border px-10'>
             <h2 className="text-4xl mb-5 text-center mt-2 text-red-400">My Orders </h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
