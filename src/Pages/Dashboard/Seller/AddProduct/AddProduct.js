@@ -15,15 +15,19 @@ const AddProduct = () => {
 
     const addProduct = (data) => {
 
-        console.log(data)
+
         const image = data.productImg[0];
         const formData = new FormData();
         formData.append('image', image);
+
+
         const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`
+
         fetch(url, {
             method: 'POST',
             body: formData
         })
+        
         .then(res => res.json())
         .then(img => {
             if(img.success){
@@ -38,6 +42,7 @@ const AddProduct = () => {
                     sellerEmail:data.sellerEmail,
                     sellerMobile:data.sellerMobile,
                     yearOfPurchase:data.yearOfPurchase,
+                    location:data.location,
                     description:data.description,
                     sellStatus:false,
                     advertiseStatus:false,
@@ -63,7 +68,35 @@ const AddProduct = () => {
         })
     }
 
+    // verification handler 
 
+    const sellerVerificationHandler = ()=>{
+
+                const seller = {
+                    name: user.displayName,
+                    email: user.email,
+                    photoURL: user.photoURL,
+                }
+           
+                fetch('http://localhost:5000/seller/verification',{
+                    method:'POST',
+                    headers:{
+                        'content-type':'application/json'
+                    },
+                    body:JSON.stringify(seller)
+                })
+                .then(res=>res.json())
+                .then(data=>{
+                    if(data.acknowledged)
+                    {
+                         toast.success('verification apply succes, wait untill it done')
+                    }
+                    else{
+                        toast.error(data.message);
+                    }
+                })
+           
+    }
     
     
     return (
@@ -85,114 +118,128 @@ const AddProduct = () => {
                 }}
                 </Get>
 
-        <div className='flex justify-center items-center w-full '>
 
-            <div className="p-8 rounded border border-gray-200 w-full">
-                <h1 className="font-medium text-gray-800 font-serif text-3xl">Add Product</h1>
-                <form onSubmit={handleSubmit(addProduct)}>
-                    <div className="mt-8 grid lg:grid-cols-3 gap-4">
-                        <div>
-                            <label htmlFor="category_id" className="text-sm text-gray-700 block mb-1 font-medium">Category</label>
+                {
+                    user?.verifed === true ? <div className='flex justify-center items-center w-full '>
 
-                             <select {...register('category_id')} className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" >
-                                <option>Please select a category</option>
-                                {
-                                    categoires?.map(category=><option key={category._id} value={category._id}>{category.category_name}</option>)
-                                }
-                                
-                            </select>
-                            
-                        </div>
+                    <div className="p-8 rounded border border-gray-200 w-full">
+                        <h1 className="font-medium text-gray-800 font-serif text-3xl">Add Product</h1>
+                        <form onSubmit={handleSubmit(addProduct)}>
+                            <div className="mt-8 grid lg:grid-cols-3 gap-4">
+                                <div>
+                                    <label htmlFor="category_id" className="text-sm text-gray-700 block mb-1 font-medium">Category</label>
+        
+                                     <select {...register('category_id')} className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" >
+                                        <option>Please select a category</option>
+                                        {
+                                            categoires?.map(category=><option key={category._id} value={category._id}>{category.category_name}</option>)
+                                        }
+                                        
+                                    </select>
+                                    
+                                </div>
+        
+                                <div>
+                                    <label htmlFor="productName" className="text-sm text-gray-700 block mb-1 font-medium">Product Name</label>
+                                    <input {...register('productName', { required: 'Provide your proudct name' })} type="text" name="productName" id="productName" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="product name" />
+                                    {errors.productName && <label className='text-red-600 text-left' >{errors.productName?.message}</label>}
+                                </div>
+        
+                                <div>
+                                    <label htmlFor="brand" className="text-sm text-gray-700 block mb-1 font-medium">Brand</label>
+                                    <input {...register('brand', { required: 'Please provide Brand Name' })} type="text" name="brand" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="brand name" />
+                                    {errors.brand && <label className='text-red-600 text-left' >{errors.brand?.message}</label>}
+                                </div>
+        
+        
+                                <div>
+                                    <label htmlFor="originalPrice" className="text-sm text-gray-700 block mb-1 font-medium">Original Price</label>
+                                    <input {...register('originalPrice', {
+                                        required: 'Please enter originalPrice'
+                                    })} type="text" name="originalPrice" id="originalPrice" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder=" original price" />
+                                    {errors.originalPrice && <label className='text-red-600 text-left' >{errors.originalPrice?.message}</label>}
+                                </div>
+        
+                                <div>
+                                    <label htmlFor="resalePrice" className="text-sm text-gray-700 block mb-1 font-medium">Resale Price</label>
+                                    <input {...register('resalePrice', {
+                                        required: 'Please enter Resale Price'
+                                    })} type="text" name="resalePrice" id="resalePrice" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder=" resale Price" />
+                                    {errors.resalePrice && <label className='text-red-600 text-left' >{errors.resalePrice?.message}</label>}
+                                </div>
+        
+                                <div>
+                                    <label htmlFor="yearOfPurchase" className="text-sm text-gray-700 block mb-1 font-medium">Uses Time (total year)</label>
+                                    <input {...register('yearOfPurchase', {
+                                        required: 'Please enter total uses time'
+                                    })} type="text" name="yearOfPurchase" id="yearOfPurchase" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder=" year Of Purchase" />
+                                    {errors.yearOfPurchase && <label className='text-red-600 text-left' >{errors.yearOfPurchase?.message}</label>}
+                                </div>
+        
+                                <div>
+                                    <label htmlFor="productCondition" className="text-sm text-gray-700 block mb-1 font-medium">Condition</label>
+                                    <select {...register('productCondition', {
+                                        required: 'select your product Condition'
+                                    })} className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="Car Registration Year">
+                                        <option >Select product condition</option>
+                                        <option value='Exellent'>Exellent</option>
+                                        <option value='Good'>Good</option>
+                                        <option value='Fair'>Fair</option>
+                                      
+                                    </select>
+                                    {errors.productCondition && <label className='text-red-600 text-left' >{errors.productCondition?.message}</label>}
+                                </div>
+        
+                                <div>
+                                    <label htmlFor="sellerMobile" className="text-sm text-gray-700 block mb-1 font-medium">Seller Mobile</label>
+                                    <input {...register('sellerMobile',{ required: 'Please provide seller mobile number' })} type="text" name="sellerMobile" id="sellerMobile" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="seller Mobile" />
+                                    {errors.productCondition && <label className='text-red-600 text-left' >{errors.productCondition?.message}</label>}
+                                </div>
+        
+                                <div>
+                                    <label htmlFor="sellerEmail" className="text-sm text-gray-700 block mb-1 font-medium">Seller Email</label>
+                                    <input {...register('sellerEmail', { required: 'Please provide seller email' })} type="text" name="sellerEmail" id="sellerEmail" value={user?.email} className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full"/>
+                                    {errors.sellerEmail && <label className='text-red-600 text-left' >{errors.sellerEmail?.message}</label>}
+                                </div>
+        
+                                <div>
+                                    <label htmlFor="location" className="text-sm text-gray-700 block mb-1 font-medium">Location</label>
+                                    <input {...register('location', { required: 'Please provide location info' })} type="text" name="location"  className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="location info" />
+                                    {errors.location && <label className='text-red-600 text-left' >{errors.location?.message}</label>}
+                                </div>
+        
+                                <div>
+                                    <label htmlFor="productImg" className="text-sm text-gray-700 block mb-1 font-medium"> Choose your cars Photos</label>
+                                    <input {...register('productImg', { required: 'Please Choose product image' })} type="file" className="file-input file-input-bordered file-input-warning w-full max-w-xs" />
+                                    {errors.productImg && <label className='text-red-600 text-left' >{errors.productImg?.message}</label>}
+                                </div>
+                            </div>
+                          
+                               <div className='w-full mt-10'>
+                                    <label htmlFor="description" className="text-sm text-gray-700 block mb-1 font-medium">Description</label>
+                                    <textarea {...register('description', { required: 'Please add product description' })} className="textarea textarea-accent w-full" placeholder="description"></textarea>
+                                    {errors.description && <label className='text-red-600 text-left' >{errors.description?.message}</label>}
+                                </div>
 
-                        <div>
-                            <label htmlFor="productName" className="text-sm text-gray-700 block mb-1 font-medium">Product Name</label>
-                            <input {...register('productName', { required: 'Provide your proudct name' })} type="text" name="productName" id="productName" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="product name" />
-                            {errors.productName && <label className='text-red-600 text-left' >{errors.productName?.message}</label>}
-                        </div>
-
-                        <div>
-                            <label htmlFor="brand" className="text-sm text-gray-700 block mb-1 font-medium">Brand</label>
-                            <input {...register('brand', { required: 'Please provide Brand Name' })} type="text" name="brand" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="brand name" />
-                            {errors.brand && <label className='text-red-600 text-left' >{errors.brand?.message}</label>}
-                        </div>
-
-
-                        <div>
-                            <label htmlFor="originalPrice" className="text-sm text-gray-700 block mb-1 font-medium">Original Price</label>
-                            <input {...register('originalPrice', {
-                                required: 'Please enter originalPrice'
-                            })} type="text" name="originalPrice" id="originalPrice" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder=" original price" />
-                            {errors.originalPrice && <label className='text-red-600 text-left' >{errors.originalPrice?.message}</label>}
-                        </div>
-
-                        <div>
-                            <label htmlFor="resalePrice" className="text-sm text-gray-700 block mb-1 font-medium">Resale Price</label>
-                            <input {...register('resalePrice', {
-                                required: 'Please enter Resale Price'
-                            })} type="text" name="resalePrice" id="resalePrice" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder=" resale Price" />
-                            {errors.resalePrice && <label className='text-red-600 text-left' >{errors.resalePrice?.message}</label>}
-                        </div>
-
-                        <div>
-                            <label htmlFor="yearOfPurchase" className="text-sm text-gray-700 block mb-1 font-medium">Uses Time (total year)</label>
-                            <input {...register('yearOfPurchase', {
-                                required: 'Please enter total uses time'
-                            })} type="text" name="yearOfPurchase" id="yearOfPurchase" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder=" year Of Purchase" />
-                            {errors.yearOfPurchase && <label className='text-red-600 text-left' >{errors.yearOfPurchase?.message}</label>}
-                        </div>
-
-                        <div>
-                            <label htmlFor="productCondition" className="text-sm text-gray-700 block mb-1 font-medium">Condition</label>
-                            <select {...register('productCondition', {
-                                required: 'select your product Condition'
-                            })} className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="Car Registration Year">
-                                <option >Select product condition</option>
-                                <option value='Exellent'>Exellent</option>
-                                <option value='Good'>Good</option>
-                                <option value='Fair'>Fair</option>
-                              
-                            </select>
-                            {errors.productCondition && <label className='text-red-600 text-left' >{errors.productCondition?.message}</label>}
-                        </div>
-
-                        <div>
-                            <label htmlFor="sellerMobile" className="text-sm text-gray-700 block mb-1 font-medium">Seller Mobile</label>
-                            <input {...register('sellerMobile',{ required: 'Please provide seller mobile number' })} type="text" name="sellerMobile" id="sellerMobile" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="seller Mobile" />
-                            {errors.productCondition && <label className='text-red-600 text-left' >{errors.productCondition?.message}</label>}
-                        </div>
-
-                        <div>
-                            <label htmlFor="sellerEmail" className="text-sm text-gray-700 block mb-1 font-medium">Seller Email</label>
-                            <input {...register('sellerEmail', { required: 'Please provide seller email' })} type="text" name="sellerEmail" id="sellerEmail" value={user?.email} defaultValue={user?.email} className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full"/>
-                            {errors.sellerEmail && <label className='text-red-600 text-left' >{errors.sellerEmail?.message}</label>}
-                        </div>
-
-                        <div>
-                            <label htmlFor="location" className="text-sm text-gray-700 block mb-1 font-medium">Location</label>
-                            <input {...register('location', { required: 'Please provide location info' })} type="text" name="location" id="location" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="location info" />
-                            {errors.location && <label className='text-red-600 text-left' >{errors.location?.message}</label>}
-                        </div>
-
-                        <div>
-                            <label htmlFor="productImg" className="text-sm text-gray-700 block mb-1 font-medium"> Choose your cars Photos</label>
-                            <input {...register('productImg', { required: 'Please Choose product image' })} type="file" className="file-input file-input-bordered file-input-warning w-full max-w-xs" />
-                            {errors.productImg && <label className='text-red-600 text-left' >{errors.productImg?.message}</label>}
-                        </div>
+                                <div className="space-x-4 mt-8">
+                                      <button type="submit" className="py-2 px-4 btn-primary y text-white rounded  disabled:opacity-50">Add Product</button>
+                                 </div>
+                     
+                        </form>
+        
                     </div>
-                  
-                       <div className='w-full mt-10'>
-                            <label htmlFor="description" className="text-sm text-gray-700 block mb-1 font-medium">Description</label>
-                            <textarea {...register('description', { required: 'Please add product description' })} className="textarea textarea-accent w-full" placeholder="description"></textarea>
-                            {errors.description && <label className='text-red-600 text-left' >{errors.description?.message}</label>}
-                        </div>
-                
-                    <div className="space-x-4 mt-8">
-                        <button type="submit" className="py-2 px-4 btn-primary y text-white rounded  disabled:opacity-50">Add Product</button>
-                    </div>
-                </form>
+                         </div>
+                    
+                    :
+                    <div className='h-[500px] flex flex-col items-center mt-4'>
+                        <h2 className='text-3xl font-bold text-red-500 mb-4'>You are not a verifed Seller</h2>
+                                   
+                        <button onClick={sellerVerificationHandler} className='btn px-2 py-2 btn-secondary'>Apply Verification</button>
 
-            </div>
-        </div>
+
+                    </div>
+                }
+                 
         </>
       );
 };

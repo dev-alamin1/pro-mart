@@ -79,6 +79,11 @@ export const Register = () => {
         
       }
 
+      if(user.role === 'seller')
+      {
+         user.verified = false
+      }
+
       fetch('http://localhost:5000/addUser',{
         method:'POST',
         headers:{
