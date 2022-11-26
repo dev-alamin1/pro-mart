@@ -2,12 +2,23 @@ import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/Authprovider";
+import useBuyer from "../../../hooks/useBuyer";
+import useAdmin from "../../../hooks/useAdmin";
+import useSeller from "../../../hooks/useSeller";
+
 
 const Navbar = () => {
+
+
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // receive user auth info from context api
   const { user,logOut} = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const [isBuyer] = useBuyer(user?.email);
+  const [isAdmin] = useAdmin(user?.email);
+  const [isSeller] = useSeller(user?.email);
 
   // user logout 
   const logoutHandler = ()=>{
@@ -51,9 +62,12 @@ const Navbar = () => {
           Pricing
         </Link>
       </li>
-      <li>
+
+
+      {
+        isBuyer && <li>
         <Link
-          to="/dashboard"
+          to="/dashboard/myorders"
           aria-label="Dashboard"
           title="Dashboard"
           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
@@ -61,6 +75,36 @@ const Navbar = () => {
           Dashboard
         </Link>
       </li>
+      }
+
+      {
+        isAdmin && <li>
+        <Link
+          to="/dashboard/allseller"
+          aria-label="Dashboard"
+          title="Dashboard"
+          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+        >
+          Dashboard
+        </Link>
+      </li>
+      }
+
+
+      {
+        isSeller && <li>
+        <Link
+          to="/dashboard/myproducts"
+          aria-label="Dashboard"
+          title="Dashboard"
+          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+        >
+          Dashboard
+        </Link>
+      </li>
+      }
+
+
 
       {user?.email ? (
         <li>

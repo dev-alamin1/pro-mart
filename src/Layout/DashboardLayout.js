@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { AuthContext } from "../Context/Authprovider";
+import useAdmin from "../hooks/useAdmin";
+import useSeller from "../hooks/useSeller";
+import useBuyer from "../hooks/useBuyer";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
 
 const DashboardLayout = () => {
+  const {user} = useContext(AuthContext);
+  const [isSeller,isSellerLoading] = useSeller(user?.email);
+  const [isAdmin,isAdminLoading] = useAdmin(user?.email);
+  const [isBuyer, isBuyerLoading] = useBuyer(user?.email);
+
+  if(isSellerLoading||isAdminLoading || isBuyerLoading)
+  {
+    return <div>Loading</div>
+  }
+
   return (
     <div>
       <div className="md:px-20 px-10">
@@ -11,10 +25,13 @@ const DashboardLayout = () => {
         <div className="md:flex gap-10 mt-10 mb-10">
 
             {/* sidebar */}
-            <div className="border md:h-72 shadow-lg rounded-md">
+            <div className="border md:h-72 shadow-lg rounded-md mt-14">
             <ul className="menu bg-base-100 md:w-56  p-2 rounded-box">
 
-              <li className="mb-2">
+
+             {
+               isAdmin && <>
+                   <li className="mb-2">
                 <Link to="/dashboard/allseller">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -53,8 +70,14 @@ const DashboardLayout = () => {
                   All Buyer
                 </Link>
               </li>
+               </>
+             }
+          
+              
 
-              <li className="mb-2">
+             {
+                isSeller && <>
+                     <li className="mb-2">
                 <Link to="/dashboard/addproduct">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -93,8 +116,12 @@ const DashboardLayout = () => {
                   My Product
                 </Link>
               </li>
+                </>
+             }
 
-              <li>
+            {
+               isBuyer && <>
+                    <li>
                 <Link to="/dashboard/myorders">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -114,6 +141,10 @@ const DashboardLayout = () => {
                 </Link>
               </li>
 
+               </>
+            }
+
+              
             </ul>
            </div>
 

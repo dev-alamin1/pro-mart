@@ -25,7 +25,7 @@ const AllBuyer = () => {
 
     return (
         <div>
-            <h2 className="text-4xl mb-5 text-center mt-2 text-red-400"> All Seller </h2>
+            <h2 className="text-4xl mb-5 text-center mt-2 text-red-400"> All Buyer </h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead>
