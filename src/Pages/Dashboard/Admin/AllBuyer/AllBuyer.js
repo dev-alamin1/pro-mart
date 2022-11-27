@@ -1,11 +1,13 @@
 
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import toast from 'react-hot-toast';
 import BuyerRows from './BuyerRows';
+import Swal from "sweetalert2";
 
 const AllBuyer = () => {
 
-    const {data:buyers = [],isLoading} = useQuery(
+    const {data:buyers = [],isLoading,refetch} = useQuery(
         {
             queryKey:['buyers'],
              queryFn:async()=>{
@@ -21,6 +23,58 @@ const AllBuyer = () => {
             }
         }
     );
+
+
+    const buyerDeleteHandler = (id) => {
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger",
+          },
+          buttonsStyling: false,
+        });
+    
+        swalWithBootstrapButtons
+          .fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true,
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+    
+                fetch(`http://localhost:5000/buyers/${id}`, {
+                    method: 'DELETE', 
+                    headers: {
+                        authorization: `bearer ${localStorage.getItem('accessToken')}`
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if(data.deletedCount > 0){
+                        refetch();
+                        toast.success(`Buyer deleted successfully`)
+                    }
+                })
+             
+    
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                "Cancelled",
+                "Your imaginary file is safe :)",
+                "error"
+              );
+            }
+          });
+      };
+
 
     if(isLoading)
     {
@@ -42,7 +96,8 @@ const AllBuyer = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {buyers.map((buyer,index)=><BuyerRows key={buyer._id} buyer={buyer} index={index}/>)}
+                        {buyers.map((buyer,index)=><BuyerRows key={buyer._id} 
+                        buyer={buyer} index={index} buyerDeleteHandler={buyerDeleteHandler}/>)}
                     </tbody>
                 </table>
             </div>

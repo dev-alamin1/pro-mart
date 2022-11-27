@@ -1,7 +1,7 @@
 import React from 'react';
 
-const SellerRows = ({sellers,index}) => {
-    const {name,email,photoURL} = sellers;
+const SellerRows = ({sellers,index,sellerDeleteHandler}) => {
+    const {name,email,photoURL,_id} = sellers;
     return (
       
         <tr>
@@ -11,7 +11,9 @@ const SellerRows = ({sellers,index}) => {
                  </td>
                  <td>{name}</td>
                  <td>{email}</td>
-                 <td>Delete</td>
+                 <td>
+                    <button onClick={()=>sellerDeleteHandler(_id)} className='btn bg-secondary btn-sm'>Delete</button>
+                 </td>
 
         </tr>
     );

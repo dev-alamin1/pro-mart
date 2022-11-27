@@ -101,7 +101,7 @@ const Product = ({
         <p className="mb-2 text-gray-700">
            <div className="flex items-center">
            <span className="text-red-400 font-bold"> Seller Name </span> :
-          {` ${ sellerName?sellerName:'Not found'}`} <span>{sellerInfo?.verified === true && <BiCheckCircle className="text-blue-400 ml-1"/>}</span>
+          {` ${ sellerName?sellerName:'Not found'}`} <span>{sellerInfo?.verified === true && <BiCheckCircle className="text-blue-600 ml-1"/>}</span>
             </div>    
         </p>
 
