@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import { AuthContext } from '../../../Context/Authprovider';
 import Product from './Product';
 import ProductBookedModal from './ProductBookedModal';
 
 const Products = () => {
+
+    const {user,loading} = useContext(AuthContext)
     const products = useLoaderData();
     const [categoryName,setCategoryName] = useState([]);
     const [categoryDesc,setCategoryDesc] = useState([]);
 
     const [productFullInfo,setProductFullInfo] = useState({});
 
+    
 
     return (
         <div className="pt-10 pb-2 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl ">
@@ -64,7 +68,7 @@ const Products = () => {
            {
             products.map(pro=>
             <Product key={pro._id} pro={pro} setCategoryName={setCategoryName} 
-            setCategoryDesc={setCategoryDesc} setProductFullInfo ={setProductFullInfo}/>)
+            setCategoryDesc={setCategoryDesc} setProductFullInfo ={setProductFullInfo} />)
            }
   
           </div>

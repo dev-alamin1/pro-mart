@@ -60,8 +60,10 @@ const AddProduct = () => {
                     productCondition: data.productCondition,
                     productName:data.productName,
                     resalePrice:data.resalePrice,
+                    sellerName:data.sellerName,
                     sellerEmail:data.sellerEmail,
                     sellerMobile:data.sellerMobile,
+                    sellerIsVerified: sellerInfo.verified === true ? true : false,
                     yearOfPurchase:data.yearOfPurchase,
                     location:data.location,
                     description:data.description,
@@ -144,11 +146,24 @@ const AddProduct = () => {
                 </Get>
 
 
-                {
-                    sellerInfo?.verified === true ? <div className='flex justify-center items-center w-full '>
+                    
+                    
+                    <div className='flex justify-center items-center w-full '>
+
+               
 
                     <div className="p-8 rounded border border-gray-200 w-full">
-                        <h1 className="font-medium text-gray-800 font-serif text-3xl">Add Product</h1>
+                       
+                        <div className='flex justify-between'>
+                                <h1 className="font-medium text-gray-800 font-serif text-3xl">Add Product</h1>           
+                                {
+                                    sellerInfo?.verified !== true ? <div className=' flex flex-col items-center'>
+                                    <h2 className='text-xl  text-red-500 mb-2'>You are not a verifed Seller</h2>
+                                            
+                                    <button onClick={sellerVerificationApplyHandler} className='btn btn-sm px-1 py-1 btn-secondary'>Apply Verification</button>
+                                </div> :""
+                            }
+                        </div>
                         <form onSubmit={handleSubmit(addProduct)}>
                             <div className="mt-8 grid lg:grid-cols-3 gap-4">
                                 <div>
@@ -221,6 +236,15 @@ const AddProduct = () => {
                                     {errors.productCondition && <label className='text-red-600 text-left' >{errors.productCondition?.message}</label>}
                                 </div>
         
+
+                                <div>
+                                    <label htmlFor="sellerEmail" className="text-sm text-gray-700 block mb-1 font-medium">Seller Name</label>
+                                    <input {...register('sellerName', { required: 'Please provide seller email' })} type="text" name="sellerName" id="sellerName" value={user?.displayName} className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full"/>
+                                    {errors.sellerName && <label className='text-red-600 text-left' >{errors.sellerName?.message}</label>}
+                                </div>
+        
+
+
                                 <div>
                                     <label htmlFor="sellerEmail" className="text-sm text-gray-700 block mb-1 font-medium">Seller Email</label>
                                     <input {...register('sellerEmail', { required: 'Please provide seller email' })} type="text" name="sellerEmail" id="sellerEmail" value={user?.email} className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full"/>
@@ -255,16 +279,7 @@ const AddProduct = () => {
                     </div>
                          </div>
                     
-                    :
-                    <div className='h-[500px] flex flex-col items-center mt-4'>
-                        <h2 className='text-3xl font-bold text-red-500 mb-4'>You are not a verifed Seller</h2>
-                                   
-                        <button onClick={sellerVerificationApplyHandler} className='btn px-2 py-2 btn-secondary'>Apply Verification</button>
-
-
-                    </div>
-                }
-                 
+                  
         </>
       );
 };

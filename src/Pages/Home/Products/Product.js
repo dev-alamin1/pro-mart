@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../Context/Authprovider";
+import { BiCheckCircle } from 'react-icons/bi';
 const Product = ({
   pro,
   setCategoryName,
   setCategoryDesc,
-  setProductFullInfo,
+  setProductFullInfo
 }) => {
   // pro = product
   const {
@@ -17,13 +19,33 @@ const Product = ({
     productCondition,
     productName,
     resalePrice,
+    sellerName,
     sellerEmail,
     sellerMobile,
-    yearOfPurchase,
-    _id,
+    yearOfPurchase,sellerIsVerified
   } = pro;
 
-  const { data: categoryInfo = [], isLoading } = useQuery({
+
+  
+     // check seller is verified or not 
+     const [sellerInfo,setSellerInfo] = useState();
+     const [sellerVerificationLoading,setSellerVerificationLoading] = useState(true);
+ 
+       useEffect(()=>{
+           fetch(`http://localhost:5000/checkSellerVerify?email=${sellerEmail}`)
+           .then(res=>res.json())
+           .then(data=>{
+ 
+            setSellerInfo(data)
+            setSellerVerificationLoading(false);
+           })
+ 
+       },[]);
+  
+
+  const {user,loading} = useContext(AuthContext);
+
+  const { data: categoryInfo = [] } = useQuery({
     queryKey: ["category", category_id],
     queryFn: async () => {
       const res = await fetch(
@@ -39,7 +61,11 @@ const Product = ({
   setCategoryName(category_name);
   setCategoryDesc(category_desc);
 
- 
+  
+ if(loading)
+ {
+  return <div>user loading .. </div>
+ }
 
   return (
     <div className=" transition-shadow duration-300 bg-white rounded shadow-sm">
@@ -70,6 +96,13 @@ const Product = ({
         <p className="mb-2 text-gray-700">
           <span className="text-red-400 font-bold">Product Condition </span> :{" "}
           {productCondition}
+        </p>
+
+        <p className="mb-2 text-gray-700">
+           <div className="flex items-center">
+           <span className="text-red-400 font-bold"> Seller Name </span> :
+          {` ${ sellerName?sellerName:'Not found'}`} <span>{sellerInfo?.verified === true && <BiCheckCircle className="text-blue-400 ml-1"/>}</span>
+            </div>    
         </p>
 
         <p className="mb-2 text-gray-700">
