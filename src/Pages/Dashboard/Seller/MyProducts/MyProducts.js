@@ -88,7 +88,10 @@ const MyProducts = () => {
 
   const productAdvertiaseHandler = (id)=>{
       fetch(`http://localhost:5000/advertise/product/${id}`,{
-        method:'PUT'
+        method:'PUT',
+        headers:{
+          authorization: `bearer ${localStorage.getItem("accessToken")}`
+        }
       })
       .then(res=>res.json())
       .then(data=>{

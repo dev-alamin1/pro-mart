@@ -18,10 +18,12 @@ export const Advertisements = () => {
 
     const [productFullInfo,setProductFullInfo] = useState({});
 
-    
-
-    return (
+    if(products.length>0)
+    {
+      return (
         <div className="pt-10 pb-2 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl ">
+
+<h2 className="text-center text-3xl mb-5">Advertised Product</h2>
           <div className="grid  gap-5 mb-8 lg:grid-cols-3 sm:mx-auto w-full">
            
            {
@@ -32,10 +34,8 @@ export const Advertisements = () => {
   
           </div>
 
-           
-
         </div>
       );
-  
-  
+    }
+
 };

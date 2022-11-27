@@ -55,6 +55,13 @@ const Navbar = () => {
       </li>
 
 
+
+
+      {user?.email ? (
+
+        <>
+        
+        
       {
         isBuyer && <li>
         <Link
@@ -95,9 +102,6 @@ const Navbar = () => {
       </li>
       }
 
-
-
-      {user?.email ? (
         <li>
           <Link onClick={logoutHandler}
             aria-label="logout"
@@ -107,6 +111,9 @@ const Navbar = () => {
             Logout
           </Link>
         </li>
+        
+        </>
+        
       ) : (
         <li>
           <Link

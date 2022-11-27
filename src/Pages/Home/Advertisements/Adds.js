@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Context/Authprovider";
 import { BiCheckCircle } from 'react-icons/bi';
@@ -46,7 +45,7 @@ const Adds = ({
   
  if(loading)
  {
-  return <div>user loading .. </div>
+  return <div>loading</div>
  }
 
   return (
