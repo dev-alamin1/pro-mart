@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import SellerVerificationRow from './SellerVerificationRow';
+import toast from 'react-hot-toast';
 
 const SellerVerifications = () => {
 
@@ -22,6 +23,42 @@ const SellerVerifications = () => {
         }
     );
 
+     // do seller verify 
+     const sellerVerifyHandler = (email)=>{
+        fetch(`http://localhost:5000/verify_seller?email=${email}`,{
+            method:'PUT',
+            headers:{
+                'content-type':'application/json',
+                 authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            if(data.modifiedCount>0)
+            {
+                // jokhn seller k verifie korbe, tokhon kintu sei seller er info
+                // verifySller requerst collectio theke delete kore dite hobe 
+
+                fetch(`http://localhost:5000/deleteSellerVerification?email=${email}`,{
+                    headers:{
+                        'content-type':'application/json',
+                         authorization: `bearer ${localStorage.getItem('accessToken')}`
+                    },
+                })
+                .then(res=>res.json())
+
+                .then(data=>{
+                        if(data.deletedCount > 0)
+                        {    refetch();
+                             toast.success('Seller verification success');
+                             
+                        }
+                })
+
+            }
+        })
+    }
+
     if(isLoading)
     {
         return <div>Loading ....</div>
@@ -42,7 +79,9 @@ const SellerVerifications = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {unVerifiedSellers.map((seller,index)=><SellerVerificationRow key={seller._id} seller={seller} index={index}/>)}
+                        {unVerifiedSellers.map((seller,index)=><SellerVerificationRow 
+                        key={seller._id} 
+                        seller={seller} index={index} sellerVerifyHandler={sellerVerifyHandler}/>)}
                     </tbody>
                 </table>
             </div>
