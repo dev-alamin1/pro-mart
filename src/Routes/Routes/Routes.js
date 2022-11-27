@@ -12,6 +12,7 @@ import Products from "../../Pages/Home/Products/Products";
 import MyProducts from "../../Pages/Dashboard/Seller/MyProducts/MyProducts";
 import Privateroute from "../Privateroute/Privateroute";
 import SellerVerifications from "../../Pages/Dashboard/Admin/SellerVerification/SellerVerifications";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 
 
 
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
     {
         path:'/',
         element:<Main/>,
+        errorElement:<ErrorPage/>,
         children:[
             {
                 path:'/',
