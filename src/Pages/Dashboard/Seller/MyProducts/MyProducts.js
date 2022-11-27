@@ -86,6 +86,21 @@ const MyProducts = () => {
       });
   };
 
+  const productAdvertiaseHandler = (id)=>{
+      fetch(`http://localhost:5000/advertise/product/${id}`,{
+        method:'PUT'
+      })
+      .then(res=>res.json())
+      .then(data=>{
+        if(data.modifiedCount>0)
+        {
+            refetch();
+            toast.success('Product Advertise Success')
+        }
+      })
+    
+  }
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -114,6 +129,7 @@ const MyProducts = () => {
                 porduct={porduct}
                 index={index}
                 deleteHandler={deleteHandler}
+                productAdvertiaseHandler={productAdvertiaseHandler}
               />
             ))}
           </tbody>

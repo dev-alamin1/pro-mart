@@ -13,10 +13,10 @@ const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // receive user auth info from context api
-  const { user,logOut} = useContext(AuthContext);
+  const { user, loader,logOut} = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [isBuyer] = useBuyer(user?.email);
+  const [isBuyer,isBuyerLoading] = useBuyer(user?.email);
   const [isAdmin] = useAdmin(user?.email);
   const [isSeller] = useSeller(user?.email);
 
@@ -121,6 +121,11 @@ const Navbar = () => {
       )}
     </>
   );
+
+  if(loader)
+  {
+    return <div>Loading ..</div>
+  }
 
   return (
     <div className="py-5  mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl">
