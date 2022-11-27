@@ -34,32 +34,23 @@ const Navbar = () => {
     <>
       <li>
         <Link
-          href="/"
+          to={'/'}
           aria-label="Our product"
           title="Our product"
           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
         >
-          Product
+          Home
         </Link>
       </li>
+      
       <li>
         <Link
-          href="/"
-          aria-label="Our product"
-          title="Our product"
-          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-        >
-          Features
-        </Link>
-      </li>
-      <li>
-        <Link
-          href="/"
+          to={'/blog'}
           aria-label="Product pricing"
           title="Product pricing"
           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
         >
-          Pricing
+          Blog
         </Link>
       </li>
 
