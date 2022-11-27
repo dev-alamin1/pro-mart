@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Get } from 'react-axios'
 import toast from 'react-hot-toast';
@@ -7,10 +7,31 @@ import { AuthContext } from '../../../../Context/Authprovider';
 
 const AddProduct = () => {
     const {user} = useContext(AuthContext)
+   
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [categoires,setCategories] = useState([]);
     const imageHostKey = process.env.REACT_APP_imgbb_key;
     const navigate = useNavigate();
+   
+
+
+     // check seller is verified or not 
+     const [sellerInfo,setSellerInfo] = useState();
+     const [sellerVerificationLoading,setSellerVerificationLoading] = useState(true);
+ 
+       useEffect(()=>{
+           fetch(`http://localhost:5000/checkSellerVerify?email=${user.email}`)
+           .then(res=>res.json())
+           .then(data=>{
+ 
+            setSellerInfo(data)
+            setSellerVerificationLoading(false);
+           })
+ 
+       },[user?.email]);
+
+       console.log(sellerInfo)
+    
 
 
     const addProduct = (data) => {
@@ -68,9 +89,13 @@ const AddProduct = () => {
         })
     }
 
+
+    
+  
+
     // verification handler 
 
-    const sellerVerificationHandler = ()=>{
+    const sellerVerificationApplyHandler = ()=>{
 
                 const seller = {
                     name: user.displayName,
@@ -97,19 +122,19 @@ const AddProduct = () => {
                 })
            
     }
-    
+
     
     return (
 
-        <>
+           <>
         
-        <Get url="http://localhost:5000/categoires" >
+               <Get url="http://localhost:5000/categoires" >
                 {(error, response, isLoading, makeRequest, axios) => {
                     if(error) {
                     return (<div>Something bad happened: {error.message} <button onClick={() => makeRequest({ params: { reload: true } })}>Retry</button></div>)
                     }
-                    else if(isLoading) {
-                    return (<div>Loading...</div>)
+                    else if(isLoading || sellerVerificationLoading) {
+                    return (<div>Loading..</div>)
                     }
                     else if(response !== null) {
                     return (setCategories(response.data))
@@ -120,7 +145,7 @@ const AddProduct = () => {
 
 
                 {
-                    user?.verifed === true ? <div className='flex justify-center items-center w-full '>
+                    sellerInfo?.verified === true ? <div className='flex justify-center items-center w-full '>
 
                     <div className="p-8 rounded border border-gray-200 w-full">
                         <h1 className="font-medium text-gray-800 font-serif text-3xl">Add Product</h1>
@@ -234,7 +259,7 @@ const AddProduct = () => {
                     <div className='h-[500px] flex flex-col items-center mt-4'>
                         <h2 className='text-3xl font-bold text-red-500 mb-4'>You are not a verifed Seller</h2>
                                    
-                        <button onClick={sellerVerificationHandler} className='btn px-2 py-2 btn-secondary'>Apply Verification</button>
+                        <button onClick={sellerVerificationApplyHandler} className='btn px-2 py-2 btn-secondary'>Apply Verification</button>
 
 
                     </div>

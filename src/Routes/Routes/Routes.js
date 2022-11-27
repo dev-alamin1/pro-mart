@@ -11,6 +11,7 @@ import { Register } from "../../Pages/Auth/Register/Register";
 import Products from "../../Pages/Home/Products/Products";
 import MyProducts from "../../Pages/Dashboard/Seller/MyProducts/MyProducts";
 import Privateroute from "../Privateroute/Privateroute";
+import SellerVerifications from "../../Pages/Dashboard/Admin/SellerVerification/SellerVerifications";
 
 
 
@@ -68,6 +69,12 @@ const router = createBrowserRouter([
             {
                 path:'/dashboard/myorders',
                 element: <MyOrders/>
+            }
+            ,
+
+            {
+                path:'/dashboard/sellerverification',
+                element: <SellerVerifications/>
             }
         ]
     }
