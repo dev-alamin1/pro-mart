@@ -11,7 +11,7 @@ const AllSeller = () => {
             queryKey:['sellers'],
              queryFn:async()=>{
                 
-             const res = await  fetch(`http://localhost:5000/sellers`,{
+             const res = await  fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/sellers`,{
                 headers:{
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -47,7 +47,7 @@ const AllSeller = () => {
           .then((result) => {
             if (result.isConfirmed) {
     
-                fetch(`http://localhost:5000/sellers/${id}`, {
+                fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/sellers/${id}`, {
                     method: 'DELETE', 
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`

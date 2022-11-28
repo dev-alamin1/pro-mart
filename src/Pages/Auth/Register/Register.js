@@ -84,7 +84,7 @@ export const Register = () => {
          user.verified = false
       }
 
-      fetch('http://localhost:5000/addUser',{
+      fetch('https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/addUser',{
         method:'POST',
         headers:{
           'content-type':'application/json'

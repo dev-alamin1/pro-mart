@@ -31,7 +31,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/category/:id',
-                loader:({params})=>fetch(`http://localhost:5000/category/${params.id}`),
+                loader:({params})=>fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/category/${params.id}`),
                 element:<Privateroute><Products/></Privateroute>
             },
             {

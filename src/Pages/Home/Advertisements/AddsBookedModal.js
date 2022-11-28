@@ -29,7 +29,7 @@ const AddsBookedModal = ({ productFullInfo, categoryName,setProductFullInfo }) =
 
       // store booking info in database 
 
-      fetch('http://localhost:5000/store/booking/product',{
+      fetch('https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/store/booking/product',{
         method:'POST',
         headers:{
           'content-type':'application/json'

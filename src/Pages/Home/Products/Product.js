@@ -35,7 +35,7 @@ const Product = ({
      const [sellerVerificationLoading,setSellerVerificationLoading] = useState(true);
  
        useEffect(()=>{
-           fetch(`http://localhost:5000/checkSellerVerify?email=${sellerEmail}`)
+           fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/checkSellerVerify?email=${sellerEmail}`)
            .then(res=>res.json())
            .then(data=>{
  
@@ -52,7 +52,7 @@ const Product = ({
     queryKey: ["category", category_id],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/categoryinfo?id=${category_id}`
+        `https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/categoryinfo?id=${category_id}`
       );
       const data = res.json();
       return data;
@@ -78,7 +78,7 @@ const Product = ({
              product_id: _id
           }
       
-        fetch('http://localhost:5000/report/product',{
+        fetch('https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/report/product',{
             method:'POST',
             headers:{
               'content-type':'application/json'

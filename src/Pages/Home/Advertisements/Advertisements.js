@@ -9,7 +9,7 @@ export const Advertisements = () => {
   const {data:products = [],isLoading} = useQuery({
     queryKey:['products'],
     queryFn:async()=>{
-      const res = await fetch(`http://localhost:5000/advertised_products`);
+      const res = await fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/advertised_products`);
       const data = await res.json();
       return data;
     }

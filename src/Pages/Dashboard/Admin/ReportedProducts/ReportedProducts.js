@@ -11,7 +11,7 @@ const ReportedProducts = () => {
             queryKey:['reportedProducts'],
              queryFn:async()=>{
                 
-             const res = await  fetch(`http://localhost:5000/all/reported/products`,{
+             const res = await  fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/all/reported/products`,{
                 headers:{
                     authorization:`bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -48,7 +48,7 @@ const ReportedProducts = () => {
           .then((result) => {
             if (result.isConfirmed) {
     
-                fetch(`http://localhost:5000/reported/product/delete/${_id}`, {
+                fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/reported/product/delete/${_id}`, {
                     method: 'DELETE', 
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -61,7 +61,7 @@ const ReportedProducts = () => {
                         
                         // first report collection theke delete hobe , er por main product theke delete hobe 
 
-                        fetch(`http://localhost:5000/product/delete/${product_id}`, {
+                        fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/product/delete/${product_id}`, {
                             method: 'DELETE', 
                             headers: {
                                 authorization: `bearer ${localStorage.getItem('accessToken')}`
