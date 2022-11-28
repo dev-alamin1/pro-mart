@@ -16,7 +16,7 @@ const MyProducts = () => {
     queryKey: ["products", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/products?email=${user?.email}`,
+        `http://localhost:5000/products?email=${user?.email}`,
         {
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -50,7 +50,7 @@ const MyProducts = () => {
       .then((result) => {
         if (result.isConfirmed) {
 
-          fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/delete/product/${id}`, {
+          fetch(`http://localhost:5000/delete/product/${id}`, {
             method: "DELETE",
             headers: {
               authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -87,7 +87,7 @@ const MyProducts = () => {
   };
 
   const productAdvertiaseHandler = (id)=>{
-      fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/advertise/product/${id}`,{
+      fetch(`http://localhost:5000/advertise/product/${id}`,{
         method:'PUT',
         headers:{
           authorization: `bearer ${localStorage.getItem("accessToken")}`

@@ -6,7 +6,7 @@
 //      const [sellerVerificationLoading,setSellerVerificationLoading] = useState(true);
 
 //        useEffect(()=>{
-//            fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/checkSellerVerify/${email}`)
+//            fetch(`http://localhost:5000/checkSellerVerify/${email}`)
 //            .then(res=>res.json())
 //            .then(data=>{
 

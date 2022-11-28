@@ -20,7 +20,7 @@ const AddProduct = () => {
      const [sellerVerificationLoading,setSellerVerificationLoading] = useState(true);
  
        useEffect(()=>{
-           fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/checkSellerVerify?email=${user.email}`)
+           fetch(`http://localhost:5000/checkSellerVerify?email=${user.email}`)
            .then(res=>res.json())
            .then(data=>{
  
@@ -74,7 +74,7 @@ const AddProduct = () => {
                 }
 
                 //save product information to the database
-                fetch('https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/store_products', {
+                fetch('http://localhost:5000/store_products', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json', 
@@ -105,7 +105,7 @@ const AddProduct = () => {
                     photoURL: user.photoURL,
                 }
            
-                fetch('https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/seller/verification',{
+                fetch('http://localhost:5000/seller/verification',{
                     method:'POST',
                     headers:{
                         'content-type':'application/json'
@@ -130,7 +130,7 @@ const AddProduct = () => {
 
            <>
         
-               <Get url="https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/categoires" >
+               <Get url="http://localhost:5000/categoires" >
                 {(error, response, isLoading, makeRequest, axios) => {
                     if(error) {
                     return (<div>Something bad happened: {error.message} <button onClick={() => makeRequest({ params: { reload: true } })}>Retry</button></div>)

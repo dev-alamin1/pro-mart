@@ -92,7 +92,7 @@ const Navbar = () => {
       {
         isSeller && <li>
         <Link
-          to="/dashboard/myproducts"
+          to="/dashboard/addproduct"
           aria-label="Dashboard"
           title="Dashboard"
           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"

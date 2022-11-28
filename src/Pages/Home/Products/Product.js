@@ -25,17 +25,17 @@ const Product = ({
     sellerEmail,
     sellerMobile,
     _id,
-    yearOfPurchase,sellerIsVerified
+    yearOfPurchase,
   } = pro;
 
 
   
      // check seller is verified or not 
-     const [sellerInfo,setSellerInfo] = useState();
+     const [sellerInfo,setSellerInfo] = useState([]);
      const [sellerVerificationLoading,setSellerVerificationLoading] = useState(true);
  
        useEffect(()=>{
-           fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/checkSellerVerify?email=${sellerEmail}`)
+           fetch(`http://localhost:5000/checkSellerVerify?email=${sellerEmail}`)
            .then(res=>res.json())
            .then(data=>{
  
@@ -52,7 +52,7 @@ const Product = ({
     queryKey: ["category", category_id],
     queryFn: async () => {
       const res = await fetch(
-        `https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/categoryinfo?id=${category_id}`
+        `http://localhost:5000/categoryinfo?id=${category_id}`
       );
       const data = res.json();
       return data;
@@ -78,7 +78,7 @@ const Product = ({
              product_id: _id
           }
       
-        fetch('https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/report/product',{
+        fetch('http://localhost:5000/report/product',{
             method:'POST',
             headers:{
               'content-type':'application/json'

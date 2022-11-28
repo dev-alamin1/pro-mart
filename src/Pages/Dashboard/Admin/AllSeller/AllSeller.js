@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import SellerRows from './SellerRows';
 import Swal from "sweetalert2";
@@ -11,7 +11,7 @@ const AllSeller = () => {
             queryKey:['sellers'],
              queryFn:async()=>{
                 
-             const res = await  fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/sellers`,{
+             const res = await  fetch(`http://localhost:5000/sellers`,{
                 headers:{
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -47,7 +47,7 @@ const AllSeller = () => {
           .then((result) => {
             if (result.isConfirmed) {
     
-                fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/sellers/${id}`, {
+                fetch(`http://localhost:5000/sellers/${id}`, {
                     method: 'DELETE', 
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -75,6 +75,26 @@ const AllSeller = () => {
           });
       };
 
+
+       // do seller verify 
+     const sellerVerifyHandler = (email)=>{
+        fetch(`http://localhost:5000/verify_seller?email=${email}`,{
+            method:'PUT',
+            headers:{
+                'content-type':'application/json',
+                 authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            if(data.modifiedCount>0)
+            {
+                refetch();
+                toast.success('Seller virified succeess !')
+            }
+        })
+    }
+    
     if(isLoading)
     {
         return <div>Loading ....</div>
@@ -96,7 +116,9 @@ const AllSeller = () => {
                     </thead>
                     <tbody>
                         {sellers.map((sellers,index)=><SellerRows key={sellers._id} 
-                        sellers={sellers} index={index} sellerDeleteHandler={sellerDeleteHandler}/>)}
+                        sellers={sellers} index={index} sellerDeleteHandler={sellerDeleteHandler} 
+                        sellerVerifyHandler={sellerVerifyHandler}  
+                        />)}
                     </tbody>
                 </table>
             </div>

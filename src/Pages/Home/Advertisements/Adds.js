@@ -27,7 +27,7 @@ const Adds = ({
      const [sellerVerificationLoading,setSellerVerificationLoading] = useState(true);
  
        useEffect(()=>{
-           fetch(`https://pro-mart-server-alaminmondalcse-gmailcom.vercel.app/checkSellerVerify?email=${sellerEmail}`)
+           fetch(`http://localhost:5000/checkSellerVerify?email=${sellerEmail}`)
            .then(res=>res.json())
            .then(data=>{
  
