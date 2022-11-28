@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 const useToken = (email)=>{
     const [token,setToken] = useState('');
-
+   
     useEffect(()=>{
         if(email)
         {
@@ -13,12 +13,13 @@ const useToken = (email)=>{
                 {
                     localStorage.setItem('accessToken', data.accessToken);
                     setToken(data.accessToken)
+                   
                 }
             })
         }
     },[email]);
 
-    return [token]
+    return [token,]
 }
 
 export default useToken;
