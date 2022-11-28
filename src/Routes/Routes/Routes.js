@@ -15,6 +15,7 @@ import SellerVerifications from "../../Pages/Dashboard/Admin/SellerVerification/
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import Blog from "../../Pages/Blog/Blog";
 import ReportedProducts from "../../Pages/Dashboard/Admin/ReportedProducts/ReportedProducts";
+import CommonDashboard from "../../Pages/Dashboard/CommonDashboard/CommonDashboard";
 
 
 
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
         element:<DashboardLayout/>,
         children:[
            
+            {
+                path:'/dashboard',
+                element:<CommonDashboard/>
+            },
             // for admin
             {
                 path:'/dashboard/allseller',

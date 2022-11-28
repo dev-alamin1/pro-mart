@@ -210,9 +210,9 @@ const AddProduct = () => {
                                 </div>
         
                                 <div>
-                                    <label htmlFor="yearOfPurchase" className="text-sm text-gray-700 block mb-1 font-medium">Uses Time (total year)</label>
+                                    <label htmlFor="yearOfPurchase" className="text-sm text-gray-700 block mb-1 font-medium">Purches Year</label>
                                     <input {...register('yearOfPurchase', {
-                                        required: 'Please enter total uses time'
+                                        required: 'Please enter purches year'
                                     })} type="text" name="yearOfPurchase" id="yearOfPurchase" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder=" year Of Purchase" />
                                     {errors.yearOfPurchase && <label className='text-red-600 text-left' >{errors.yearOfPurchase?.message}</label>}
                                 </div>

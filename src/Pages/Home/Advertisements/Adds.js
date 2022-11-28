@@ -23,6 +23,8 @@ const Adds = ({
     yearOfPurchase,
   } = pro;
 
+  const {user} = useContext(AuthContext);
+
 
      // check seller is verified or not 
      const [sellerInfo,setSellerInfo] = useState();
@@ -111,13 +113,17 @@ const Adds = ({
           {description}
         </p>
 
-        <label
-          htmlFor="product-booked-modal"
-          onClick={() => setProductFullInfo(pro)}
-          className="bg-orange-400 px-2 py-1 rounded-sm hover:bg-orange-600 hover:text-white"
-        >
-          Book Now
-        </label>
+        
+
+        {
+           user?.email && <label
+           htmlFor="product-booked-modal"
+           onClick={() => setProductFullInfo(pro)}
+           className="bg-orange-400 px-2 py-1 rounded-sm hover:bg-orange-600 hover:text-white"
+         >
+           Book Now
+         </label>
+        }
       </div>
     </div>
   );

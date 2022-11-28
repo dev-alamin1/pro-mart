@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import SellerVerificationRow from './SellerVerificationRow';
 import toast from 'react-hot-toast';
+import Zero from '../../../Shared/ZeoProduct/Zero';
 
 const SellerVerifications = () => {
 
@@ -79,7 +80,7 @@ const SellerVerifications = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {unVerifiedSellers.map((seller,index)=><SellerVerificationRow 
+                        {unVerifiedSellers.length === 0 ? <Zero>Seller verification request 0</Zero> :unVerifiedSellers.map((seller,index)=><SellerVerificationRow 
                         key={seller._id} 
                         seller={seller} index={index} sellerVerifyHandler={sellerVerifyHandler}/>)}
                     </tbody>

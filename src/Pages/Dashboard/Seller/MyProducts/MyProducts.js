@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import MyProductRow from "./MyProductRow";
 import toast from "react-hot-toast";
 import Loading from "../../../Shared/Loading/Loading";
+import Zero from "../../../Shared/ZeoProduct/Zero";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
@@ -127,7 +128,7 @@ const MyProducts = () => {
             </tr>
           </thead>
           <tbody>
-            {Myproducts.map((porduct, index) => (
+            {Myproducts.length === 0 ? <Zero>No product Found </Zero> :Myproducts.map((porduct, index) => (
               <MyProductRow
                 key={porduct._id}
                 porduct={porduct}

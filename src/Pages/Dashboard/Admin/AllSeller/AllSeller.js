@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import SellerRows from './SellerRows';
 import Swal from "sweetalert2";
 import Loading from '../../../Shared/Loading/Loading';
+import Zero from '../../../Shared/ZeoProduct/Zero';
 
 const AllSeller = () => {
 
@@ -116,7 +117,7 @@ const AllSeller = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {sellers.map((sellers,index)=><SellerRows key={sellers._id} 
+                        {sellers.length ===0 ? <Zero>No register seller found </Zero> :sellers.map((sellers,index)=><SellerRows key={sellers._id} 
                         sellers={sellers} index={index} sellerDeleteHandler={sellerDeleteHandler} 
                         sellerVerifyHandler={sellerVerifyHandler}  
                         />)}

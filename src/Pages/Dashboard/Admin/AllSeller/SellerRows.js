@@ -10,7 +10,7 @@ const SellerRows = ({sellers,index,sellerDeleteHandler,sellerVerifyHandler}) => 
            <tr>
                  <td>{index+1}</td>
                  <td>
-                    <img src={photoURL} alt="" className='w-20' />
+                    <img src={photoURL} alt="" className='w-20 rounded-full' />
                  </td>
                  
                  <td>

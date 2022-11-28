@@ -18,14 +18,8 @@ const Product = ({
     originalPrice,
     productImg,
     productCondition,
-    productName,
-    resalePrice,
-    sellerName,
-    sellerEmail,
-    sellerMobile,
-    _id,
-    yearOfPurchase,
-  } = pro;
+    productName,resalePrice, sellerName,sellerEmail,sellerMobile,_id,yearOfPurchase,
+    postedOn} = pro;
 
 
   
@@ -107,7 +101,7 @@ const Product = ({
       <div className="p-5 border border-t-0">
         <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
           Category : {category_name} |
-          <span className="text-gray-600"> Posted on — 28 Dec 2020</span>
+          <span className="text-orange-600"> Posted on — {postedOn?postedOn.split('T')[0] :'Not found'}</span>
         </p>
 
         <p className="mb-2 text-gray-700">
@@ -123,8 +117,8 @@ const Product = ({
         </p>
 
         <p className="mb-2 text-gray-700">
-          <span className="text-red-400 font-bold">Used Time </span> :{" "}
-          {yearOfPurchase} years
+          <span className="text-red-400 font-bold">Purches Years </span> :{" "}
+          {yearOfPurchase} 
         </p>
 
         <p className="mb-2 text-gray-700">

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../../Context/Authprovider';
+import Zero from '../../Shared/ZeoProduct/Zero';
 import Product from './Product';
 import ProductBookedModal from './ProductBookedModal';
 
@@ -50,7 +51,7 @@ const Products = () => {
                     height="24"
                   />
                 </svg>
-                <span className="relative">{categoryName}</span>
+                <span className="relative text-orange-500">{categoryName}</span>
               </span>{' '}
             </h2>
 
@@ -66,7 +67,7 @@ const Products = () => {
           <div className="grid  gap-5 mb-8 lg:grid-cols-3 sm:mx-auto w-full">
            
            {
-            products.map(pro=>
+            products.length === 0 ? <Zero className="text-center">No product Available</Zero> :products.map(pro=>
             <Product key={pro._id} pro={pro} setCategoryName={setCategoryName} 
             setCategoryDesc={setCategoryDesc} setProductFullInfo ={setProductFullInfo} />)
            }

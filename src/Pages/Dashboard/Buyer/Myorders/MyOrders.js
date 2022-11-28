@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../../Context/Authprovider';
 import Loading from '../../../Shared/Loading/Loading';
+import Zero from '../../../Shared/ZeoProduct/Zero';
 
 import MyOrdersRow from './MyOrdersRow';
 
@@ -36,7 +37,7 @@ const MyOrders = () => {
 
 
     return (
-        <div className='border px-10'>
+        <div className='border'>
             <h2 className="text-4xl mb-5 text-center mt-2 text-red-400">My Orders </h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
@@ -51,7 +52,7 @@ const MyOrders = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.map((order,index)=><MyOrdersRow key={order._id} order={order} index={index}/>)}
+                        {orders.length ===0 ? <Zero>You have 0 order </Zero> : orders.map((order,index)=><MyOrdersRow key={order._id} order={order} index={index}/>)}
                     </tbody>
                 </table>
             </div>

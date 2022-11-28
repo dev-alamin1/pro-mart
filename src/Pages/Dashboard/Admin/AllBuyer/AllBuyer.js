@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import BuyerRows from './BuyerRows';
 import Swal from "sweetalert2";
 import Loading from '../../../Shared/Loading/Loading';
+import Zero from '../../../Shared/ZeoProduct/Zero';
 
 const AllBuyer = () => {
 
@@ -97,7 +98,7 @@ const AllBuyer = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {buyers.map((buyer,index)=><BuyerRows key={buyer._id} 
+                        {buyers.length ===0 ? <Zero>Not found any buyer</Zero> :buyers.map((buyer,index)=><BuyerRows key={buyer._id} 
                         buyer={buyer} index={index} buyerDeleteHandler={buyerDeleteHandler}/>)}
                     </tbody>
                 </table>

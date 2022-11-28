@@ -173,6 +173,8 @@ const AddsBookedModal = ({ productFullInfo, categoryName,setProductFullInfo }) =
                   Book 
                 </button>
               </div>
+
+              
             </form>
           </div>
         </div>

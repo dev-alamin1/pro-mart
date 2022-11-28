@@ -7,7 +7,7 @@ const BuyerRows = ({buyer,index,buyerDeleteHandler}) => {
         <tr>
                  <td>{index+1}</td>
                  <td>
-                    <img src={photoURL} alt="" className='w-20' />
+                    <img src={photoURL} alt="" className='w-20 rounded-full' />
                  </td>
                  <td>{name}</td>
                  <td>{email}</td>
