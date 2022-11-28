@@ -4,6 +4,7 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import BuyerRows from './BuyerRows';
 import Swal from "sweetalert2";
+import Loading from '../../../Shared/Loading/Loading';
 
 const AllBuyer = () => {
 
@@ -12,7 +13,7 @@ const AllBuyer = () => {
             queryKey:['buyers'],
              queryFn:async()=>{
                 
-             const res = await  fetch(`http://localhost:5000/buyers`,{
+             const res = await  fetch(`https://pro-mart-server.vercel.app/buyers`,{
                 headers:{
                     authorization:`bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -47,7 +48,7 @@ const AllBuyer = () => {
           .then((result) => {
             if (result.isConfirmed) {
     
-                fetch(`http://localhost:5000/buyers/${id}`, {
+                fetch(`https://pro-mart-server.vercel.app/buyers/${id}`, {
                     method: 'DELETE', 
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -76,10 +77,10 @@ const AllBuyer = () => {
       };
 
 
-    if(isLoading)
-    {
-        return <div>Loading ....</div>
-    }
+    // if(isLoading)
+    // {
+    //     return <Loading/>
+    // }
 
     return (
         <div className='bg-purple-100'>

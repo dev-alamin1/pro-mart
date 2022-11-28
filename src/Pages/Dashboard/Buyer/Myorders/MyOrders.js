@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../../Context/Authprovider';
+import Loading from '../../../Shared/Loading/Loading';
 
 import MyOrdersRow from './MyOrdersRow';
 
@@ -15,7 +16,7 @@ const MyOrders = () => {
             queryKey:['orders',user?.email],
              queryFn:async()=>{
                 
-             const res = await  fetch(`http://localhost:5000/orders?email=${user?.email}`,{
+             const res = await  fetch(`https://pro-mart-server.vercel.app/orders?email=${user?.email}`,{
                 headers:{
                     authorization:`bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -27,6 +28,11 @@ const MyOrders = () => {
         }
     );
 
+
+    // if(isLoading)
+    // {
+    //     return <Loading/>
+    // }
 
 
     return (

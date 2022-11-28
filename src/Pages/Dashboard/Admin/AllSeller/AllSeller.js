@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import SellerRows from './SellerRows';
 import Swal from "sweetalert2";
+import Loading from '../../../Shared/Loading/Loading';
 
 const AllSeller = () => {
 
@@ -11,7 +12,7 @@ const AllSeller = () => {
             queryKey:['sellers'],
              queryFn:async()=>{
                 
-             const res = await  fetch(`http://localhost:5000/sellers`,{
+             const res = await  fetch(`https://pro-mart-server.vercel.app/sellers`,{
                 headers:{
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -47,7 +48,7 @@ const AllSeller = () => {
           .then((result) => {
             if (result.isConfirmed) {
     
-                fetch(`http://localhost:5000/sellers/${id}`, {
+                fetch(`https://pro-mart-server.vercel.app/sellers/${id}`, {
                     method: 'DELETE', 
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -78,7 +79,7 @@ const AllSeller = () => {
 
        // do seller verify 
      const sellerVerifyHandler = (email)=>{
-        fetch(`http://localhost:5000/verify_seller?email=${email}`,{
+        fetch(`https://pro-mart-server.vercel.app/verify_seller?email=${email}`,{
             method:'PUT',
             headers:{
                 'content-type':'application/json',
@@ -95,10 +96,10 @@ const AllSeller = () => {
         })
     }
     
-    if(isLoading)
-    {
-        return <div>Loading ....</div>
-    }
+    // if(isLoading)
+    // {
+    //     return <Loading/>
+    // }
 
     return (
         <div>

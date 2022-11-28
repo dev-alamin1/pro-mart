@@ -4,6 +4,7 @@ import { Get } from 'react-axios'
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../Context/Authprovider';
+import Loading from '../../../Shared/Loading/Loading';
 
 const AddProduct = () => {
     const {user} = useContext(AuthContext)
@@ -20,7 +21,7 @@ const AddProduct = () => {
      const [sellerVerificationLoading,setSellerVerificationLoading] = useState(true);
  
        useEffect(()=>{
-           fetch(`http://localhost:5000/checkSellerVerify?email=${user.email}`)
+           fetch(`https://pro-mart-server.vercel.app/checkSellerVerify?email=${user.email}`)
            .then(res=>res.json())
            .then(data=>{
  
@@ -74,7 +75,7 @@ const AddProduct = () => {
                 }
 
                 //save product information to the database
-                fetch('http://localhost:5000/store_products', {
+                fetch('https://pro-mart-server.vercel.app/store_products', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json', 
@@ -105,7 +106,7 @@ const AddProduct = () => {
                     photoURL: user.photoURL,
                 }
            
-                fetch('http://localhost:5000/seller/verification',{
+                fetch('https://pro-mart-server.vercel.app/seller/verification',{
                     method:'POST',
                     headers:{
                         'content-type':'application/json'
@@ -130,13 +131,13 @@ const AddProduct = () => {
 
            <>
         
-               <Get url="http://localhost:5000/categoires" >
+               <Get url="https://pro-mart-server.vercel.app/categoires" >
                 {(error, response, isLoading, makeRequest, axios) => {
                     if(error) {
                     return (<div>Something bad happened: {error.message} <button onClick={() => makeRequest({ params: { reload: true } })}>Retry</button></div>)
                     }
                     else if(isLoading || sellerVerificationLoading) {
-                    return (<div>Loading..</div>)
+                    return (<div><Loading/></div>)
                     }
                     else if(response !== null) {
                     return (setCategories(response.data))

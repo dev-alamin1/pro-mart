@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Context/Authprovider";
 import { BiCheckCircle } from 'react-icons/bi';
+import { useQuery } from "@tanstack/react-query";
 const Adds = ({
   pro,
-  setProductFullInfo
+  setProductFullInfo,setCategoryName
 }) => {
   // pro = product
   const {
@@ -22,12 +23,13 @@ const Adds = ({
     yearOfPurchase,
   } = pro;
 
+
      // check seller is verified or not 
      const [sellerInfo,setSellerInfo] = useState();
      const [sellerVerificationLoading,setSellerVerificationLoading] = useState(true);
  
        useEffect(()=>{
-           fetch(`http://localhost:5000/checkSellerVerify?email=${sellerEmail}`)
+           fetch(`https://pro-mart-server.vercel.app/checkSellerVerify?email=${sellerEmail}`)
            .then(res=>res.json())
            .then(data=>{
  
@@ -35,18 +37,26 @@ const Adds = ({
             setSellerVerificationLoading(false);
            })
  
-       },[]);
+       },[sellerEmail]);
   
 
-  const {user,loading} = useContext(AuthContext);
+// load category info 
+  const { data: categoryInfo = [] } = useQuery({
+    queryKey: ["category", category_id],
+    queryFn: async () => {
+      const res = await fetch(
+        `https://pro-mart-server.vercel.app/categoryinfo?id=${category_id}`
+      );
+      const data = res.json();
+      return data;
+    },
+  });
+
+  const { category_name } = categoryInfo;
+
+  setCategoryName(category_name);
 
   
-
-  
- if(loading)
- {
-  return <div>loading</div>
- }
 
   return (
     <div className=" transition-shadow duration-300 bg-white rounded shadow-sm">

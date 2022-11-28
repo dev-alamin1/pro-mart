@@ -5,6 +5,7 @@ import useAdmin from "../hooks/useAdmin";
 import useSeller from "../hooks/useSeller";
 import useBuyer from "../hooks/useBuyer";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
+import Loading from "../Pages/Shared/Loading/Loading";
 
 const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
@@ -13,7 +14,9 @@ const DashboardLayout = () => {
   const [isBuyer, isBuyerLoading] = useBuyer(user?.email);
 
   if (isSellerLoading || isAdminLoading || isBuyerLoading) {
-    return <div>Loading</div>;
+        return  <div className='flex items-center justify-center h-screen'>
+               <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-violet-400"></div>
+         </div>
   }
 
   return (

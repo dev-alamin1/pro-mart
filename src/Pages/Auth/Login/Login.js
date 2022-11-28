@@ -75,7 +75,7 @@ export const Login = () => {
     }
     
    
-    fetch('http://localhost:5000/addUser',{
+    fetch('https://pro-mart-server.vercel.app/addUser',{
       method:'POST',
       headers:{
         'content-type':'application/json'

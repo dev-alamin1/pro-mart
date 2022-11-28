@@ -4,14 +4,16 @@ import Category from "./Category";
 export const Categories = () => {
 
 
-    const {data:categoires =[]} = useQuery({
+    const {data:categoires =[], isLoading} = useQuery({
       queryKey:['categories'],
       queryFn:async()=>{
-        const res = await fetch('http://localhost:5000/categoires');
+        const res = await fetch('https://pro-mart-server.vercel.app/categoires');
         const data = res.json();
         return data;
       }
     })
+
+  
 
     return (
       <div className=" py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl">

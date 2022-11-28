@@ -13,7 +13,9 @@ const MyOrdersRow = ({order,index}) => {
                  <td>{productName}</td>
                  <td>{categoryNameInfo}</td>
                  <td>{productPrice} Tk</td>
-                 <td>Pay</td>
+                 <td>
+                    <button className='btn btn-sm btn-primary'>Pay</button>
+                 </td>
 
         </tr>
     );

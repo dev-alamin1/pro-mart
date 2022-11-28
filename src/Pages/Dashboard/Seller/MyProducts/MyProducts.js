@@ -4,6 +4,7 @@ import { AuthContext } from "../../../../Context/Authprovider";
 import Swal from "sweetalert2";
 import MyProductRow from "./MyProductRow";
 import toast from "react-hot-toast";
+import Loading from "../../../Shared/Loading/Loading";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
@@ -16,7 +17,7 @@ const MyProducts = () => {
     queryKey: ["products", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/products?email=${user?.email}`,
+        `https://pro-mart-server.vercel.app/products?email=${user?.email}`,
         {
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -50,7 +51,7 @@ const MyProducts = () => {
       .then((result) => {
         if (result.isConfirmed) {
 
-          fetch(`http://localhost:5000/delete/product/${id}`, {
+          fetch(`https://pro-mart-server.vercel.app/delete/product/${id}`, {
             method: "DELETE",
             headers: {
               authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -87,7 +88,7 @@ const MyProducts = () => {
   };
 
   const productAdvertiaseHandler = (id)=>{
-      fetch(`http://localhost:5000/advertise/product/${id}`,{
+      fetch(`https://pro-mart-server.vercel.app/advertise/product/${id}`,{
         method:'PUT',
         headers:{
           authorization: `bearer ${localStorage.getItem("accessToken")}`
@@ -104,9 +105,9 @@ const MyProducts = () => {
     
   }
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <Loading/>
+  // }
 
   return (
     <div>

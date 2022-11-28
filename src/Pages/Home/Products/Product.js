@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Context/Authprovider";
 import { BiCheckCircle } from 'react-icons/bi';
-import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 const Product = ({
   pro,
@@ -35,7 +34,7 @@ const Product = ({
      const [sellerVerificationLoading,setSellerVerificationLoading] = useState(true);
  
        useEffect(()=>{
-           fetch(`http://localhost:5000/checkSellerVerify?email=${sellerEmail}`)
+           fetch(`https://pro-mart-server.vercel.app/checkSellerVerify?email=${sellerEmail}`)
            .then(res=>res.json())
            .then(data=>{
  
@@ -52,7 +51,7 @@ const Product = ({
     queryKey: ["category", category_id],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/categoryinfo?id=${category_id}`
+        `https://pro-mart-server.vercel.app/categoryinfo?id=${category_id}`
       );
       const data = res.json();
       return data;
@@ -78,7 +77,7 @@ const Product = ({
              product_id: _id
           }
       
-        fetch('http://localhost:5000/report/product',{
+        fetch('https://pro-mart-server.vercel.app/report/product',{
             method:'POST',
             headers:{
               'content-type':'application/json'

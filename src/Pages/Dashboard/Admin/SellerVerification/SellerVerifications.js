@@ -11,7 +11,7 @@ const SellerVerifications = () => {
             queryKey:['unVerifiedSellers'],
              queryFn:async()=>{
                 
-             const res = await  fetch(`http://localhost:5000/unverifiedsellers`,{
+             const res = await  fetch(`https://pro-mart-server.vercel.app/unverifiedsellers`,{
                 headers:{
                     authorization:`bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -25,7 +25,7 @@ const SellerVerifications = () => {
 
      // do seller verify 
      const sellerVerifyHandler = (email)=>{
-        fetch(`http://localhost:5000/verify_seller?email=${email}`,{
+        fetch(`https://pro-mart-server.vercel.app/verify_seller?email=${email}`,{
             method:'PUT',
             headers:{
                 'content-type':'application/json',
@@ -39,7 +39,7 @@ const SellerVerifications = () => {
                 // jokhn seller k verifie korbe, tokhon kintu sei seller er info
                 // verifySller requerst collectio theke delete kore dite hobe 
 
-                fetch(`http://localhost:5000/deleteSellerVerification?email=${email}`,{
+                fetch(`https://pro-mart-server.vercel.app/deleteSellerVerification?email=${email}`,{
                     headers:{
                         'content-type':'application/json',
                          authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -59,10 +59,10 @@ const SellerVerifications = () => {
         })
     }
 
-    if(isLoading)
-    {
-        return <div>Loading ....</div>
-    }
+    // if(isLoading)
+    // {
+    //     return <div>Loading ....</div>
+    // }
 
     return (
         <div className='bg-purple-100'>
