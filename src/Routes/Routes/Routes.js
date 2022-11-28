@@ -14,6 +14,7 @@ import Privateroute from "../Privateroute/Privateroute";
 import SellerVerifications from "../../Pages/Dashboard/Admin/SellerVerification/SellerVerifications";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import Blog from "../../Pages/Blog/Blog";
+import ReportedProducts from "../../Pages/Dashboard/Admin/ReportedProducts/ReportedProducts";
 
 
 
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
             {
                 path:'/dashboard/sellerverification',
                 element: <SellerVerifications/>
+            },
+            {
+                path:'/dashboard/reported/products',
+                element: <ReportedProducts/>
             }
         ]
     }
