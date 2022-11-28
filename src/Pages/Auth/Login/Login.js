@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -20,27 +20,35 @@ export const Login = () => {
        , tokhon kintu sei state ta useToken er vitore thakar karone, email ta peye jabe
        email pele, token pabe, token pele navigate hobe 
    */
+       const navigate = useNavigate();
+       const location = useLocation();
+       const from = location.state?.from?.pathname || '/';
 
   const [loginUserEmail,setLoginUserEmail] = useState('');
   
-  const [token] = useToken(loginUserEmail);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
+   const [token] = useToken(loginUserEmail);
+ 
 
-  if(token)
-  {
-    navigate(from,{replace:true})
-  }
+  useEffect(()=>{
+      if(token)
+      {
+        navigate(from,{replace:true})
+      }
+  },[token,from,navigate])
+
+  
 
   //handler user login
   const userLogin = (data)=>{
        loginWithEmailAndPassword(data.email,data.password)
       .then(result=>{
-
-        setLoginUserEmail(data.email)
-        console.log(data.email)
-        toast.success("User login success ")
+          const user =result.user;
+          if(user.email)
+          {
+            setLoginUserEmail(data.email)
+            console.log(data.email)
+            toast.success("User login success ")
+          }
       })
       .catch(error=>setLoginError(error.message))
   }
@@ -65,7 +73,7 @@ export const Login = () => {
       role: 'buyer',
       photoURL:photoURL
     }
-    console.log(user)
+    
    
     fetch('http://localhost:5000/addUser',{
       method:'POST',
@@ -76,8 +84,9 @@ export const Login = () => {
     })
     .then(res=>res.json())
     .then(data=>{
-       toast.success("User login success")
-       setLoginUserEmail(email)
+        toast.success("User login success")
+        setLoginUserEmail(email)
+      
     })
 }
 
