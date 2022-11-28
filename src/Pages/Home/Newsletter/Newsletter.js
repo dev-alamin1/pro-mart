@@ -1,42 +1,25 @@
+import { Link } from "react-router-dom";
+
 export const Newsletter = () => {
-    return (
-      <div className="relative bg-gray-900">
-        <div className="absolute inset-x-0 bottom-0">
-          <svg
-            viewBox="0 0 224 12"
-            fill="currentColor"
-            className="w-full -mb-1 text-white"
-            preserveAspectRatio="none"
-          >
-            <path d="M0,0 C48.8902582,6.27314026 86.2235915,9.40971039 112,9.40971039 C137.776408,9.40971039 175.109742,6.27314026 224,0 L224,12.0441132 L0,12.0441132 L0,0 Z" />
-          </svg>
-        </div>
-        <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-          <div className="relative max-w-2xl sm:mx-auto sm:max-w-xl md:max-w-2xl sm:text-center">
-            <h2 className="mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
-              Stay Connected
-              <br className=" md:block" />
-               Subscribe for news letter
-              
-            </h2>
-            
-            <form className="flex flex-col items-center w-full mb-4 md:flex-row md:px-16">
-              <input
-                placeholder="Email"
-                required
-                type="text"
-                className="flex-grow w-full h-12 px-4 mb-3 text-white transition duration-200 bg-transparent border-2 border-gray-400 rounded appearance-none md:mr-2 md:mb-0 focus:border-deep-purple-accent-200 focus:outline-none focus:shadow-outline"
-              />
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-deep-purple-accent-400 "
-              >
-                Subscribe
-              </button>
-            </form>
-           
+  return(
+    <section>
+  <div className=''>
+      <div className="container flex flex-col items-center  py-5 pb-5 mx-auto text-center lg:pb-56 md:py-32 md:px-10 lg:px-32 text-gray-900">
+          
+      <h1 className="text-5xl font-bold leading-none sm:text-6xl xl:max-w-4xl text-gray-900">Do you want to sell your phone?
+                    
+                    </h1>
+          <p className="mt-6 text-lg xl:max-w-3xl text-gray-900">Sign up for free  to sell your used mobile phone! </p>
+          
+          <div className="flex flex-wrap justify-center">
+              <Link to={'/register'}><button type="button" className="px-8 py-3 btn-primary m-2 text-lg font-semibold rounded text-gray-50">Rgister</button></Link>
+             <Link to={'/login'}>
+             <button type="button" className="px-8 btn btn-outline py-3 m-2 text-lg border rounded border-gray-700 text-gray-900">Login</button>
+             </Link>
           </div>
-        </div>
       </div>
-    );
+  </div>
+  <img src="https://i.ibb.co/sVJCzYf/wallpaper.jpg" alt="" className="w-full mx-auto mb-12 -mt-20 rounded-lg shadow-md lg:-mt-40 bg-gray-500" />
+</section>
+  );
   };
