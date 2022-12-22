@@ -210,10 +210,12 @@ const Product = ({
             <label
               htmlFor="product-booked-modal"
               onClick={() => setProductFullInfo(pro)}
-              className="badge badge-outline hover:bg-orange-600 hover:text-white"
+              className="btn btn-sm hover:bg-orange-600 hover:text-white"
             >
               Book Now
             </label>
+
+            <button onClick={()=>reportToAdminHandler(pro)} className="btn btn-sm">Report</button>
           </div>
         </div>
       </div>
