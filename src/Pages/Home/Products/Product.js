@@ -107,7 +107,7 @@ const Product = ({
 
   return (
 
-      <div className="card bg-base-100 shadow-xl">
+      <div className="card bg-base-100 shadow-xl md:w-[600px]">
         <div className=" flex items-center justify-center">
           <img src={productImg} alt="Shoes" className="h-80 w-full" />
         </div>
@@ -162,6 +162,10 @@ const Product = ({
                   {productCondition}
                 </p>
 
+                <p className="mb-2 text-gray-700  md:hidden">
+          <span className="text-red-400 font-bold">Location</span> : {location}
+        </p>
+
                 
               </div>
 
@@ -185,7 +189,7 @@ const Product = ({
           {sellerEmail}
         </p>
 
-        <p className="mb-2 text-gray-700">
+        <p className="mb-2 text-gray-700 hidden md:block">
           <span className="text-red-400 font-bold">Location</span> : {location}
         </p>
 

@@ -64,7 +64,7 @@ const Products = () => {
             }
            
           </div>
-          <div className="grid  gap-5 mb-8 lg:grid-cols-2 sm:mx-auto w-full">
+          <div className="grid  gap-5 mb-8 lg:grid-cols-2 sm:mx-auto ">
            
            {
             products.length === 0 ? <Zero className="text-center">No product Available</Zero> :products.map(pro=>
