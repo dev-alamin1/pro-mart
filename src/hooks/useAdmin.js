@@ -8,7 +8,7 @@ const useAdmin = email => {
             fetch(`https://pro-mart-server.vercel.app/admin/${email}`)
                 .then(res => res.json())
                 .then(data => {
-                    // console.log(data);
+                
                     setIsAdmin(data.isAdmin);
                     setIsAdminLoading(false);
                 })
