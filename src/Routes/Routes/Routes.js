@@ -50,7 +50,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/advertiseId/:id',
-                loader:({params})=>fetch(`http://localhost:5000/addvertise/product/${params.id}`),
+                loader:({params})=>fetch(`https://pro-mart-server.vercel.app/addvertise/product/${params.id}`),
                 element:<AdvertisementDetails/>,
                
             }

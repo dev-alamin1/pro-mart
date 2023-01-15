@@ -39,7 +39,7 @@ const AdvertisementDetails = () => {
 },[sellerEmail]);
 
 const [productFullInfo,setProductFullInfo] = useState(null);
-console.log(productFullInfo)
+
 
 
   return (
