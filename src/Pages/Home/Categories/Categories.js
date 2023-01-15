@@ -17,7 +17,7 @@ export const Categories = () => {
 
     return (
       <div className=" py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl">
-        <h2 className="text-center font-bold text-3xl md:text-4xl  my-10">Used Phone Categories</h2>
+        <h2 className="text-center font-bold text-3xl md:text-4xl  my-10">Used Phone</h2>
         <div className="grid gap-8 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
 
 
