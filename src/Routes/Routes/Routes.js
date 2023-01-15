@@ -16,6 +16,7 @@ import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import Blog from "../../Pages/Blog/Blog";
 import ReportedProducts from "../../Pages/Dashboard/Admin/ReportedProducts/ReportedProducts";
 import CommonDashboard from "../../Pages/Dashboard/CommonDashboard/CommonDashboard";
+import AdvertisementDetails from "../../Pages/Home/Advertisements/AdvertisementDetails";
 
 
 
@@ -46,6 +47,12 @@ const router = createBrowserRouter([
             {
                 path:'/blog',
                 element:<Blog/>
+            },
+            {
+                path:'/advertiseId/:id',
+                loader:({params})=>fetch(`http://localhost:5000/addvertise/product/${params.id}`),
+                element:<AdvertisementDetails/>,
+               
             }
         ]
     },

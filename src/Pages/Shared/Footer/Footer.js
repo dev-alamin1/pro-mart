@@ -21,7 +21,7 @@ export const Footer = () => {
             </svg>
 
             <span className="ml-2 text-xl font-bold tracking-wide text-orange-400 uppercase">
-              pro mart
+              Mobile Pro
             </span>
           </a>
           <div className="mt-6 lg:max-w-sm">
@@ -77,7 +77,7 @@ export const Footer = () => {
       </div>
       <div className="flex flex-col-reverse justify-between pt-5 pb-10 border-t lg:flex-row">
         <p className="text-sm text-gray-600">
-          © Copyright 2022 Pro Mart. All rights reserved.
+          © Copyright 2022 Mobile Pro. All rights reserved.
         </p>
         <ul className="flex flex-col mb-3 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">
           <li>

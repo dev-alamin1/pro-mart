@@ -112,7 +112,7 @@ export const Login = () => {
             <div className="flex flex-col items-center justify-between xl:flex-row">
               <div className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12 hidden md:block">
                 <h2 className="max-w-lg mb-6 font-sans text-3xl text-center font-bold tracking-tight text-white sm:text-4xl">
-                     Welcome To Pro Mart <br />
+                     Welcome To Mobile Pro <br />
                      Login Now !
                 </h2>
             

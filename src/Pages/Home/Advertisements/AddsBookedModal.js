@@ -20,11 +20,11 @@ const AddsBookedModal = ({ productFullInfo, categoryName,setProductFullInfo }) =
       const productPrice = form.price.value;
       const phoneNumber = form.phoneNumber.value;
       const meetLocation = form.meetLocation.value;
-      const categoryNameInfo = categoryName;
+      // const categoryNameInfo = categoryName;
       
 
       const bookingInfo = {
-        name,email,productName,productPrice,phoneNumber,meetLocation,categoryNameInfo,productImg
+        name,email,productName,productPrice,phoneNumber,meetLocation,productImg
       }
 
       // store booking info in database 
