@@ -42,8 +42,8 @@ const Adds = ({ pro, setProductFullInfo, setCategoryName }) => {
   //   setCategoryName(category_name);
 
   return (
-    <div className="mt-5">
-      <div className="card w-full bg-base-100 shadow-xl">
+    <div className="mt-5" >
+      <div className="card w-full bg-base-100 shadow-xl" data-aos="zoom-in-up">
         <figure>
           <img src={productImg} alt={productName} className="h-60 w-full" />
         </figure>

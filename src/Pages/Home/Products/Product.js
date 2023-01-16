@@ -109,7 +109,7 @@ const Product = ({
   return (
 
     <div>
-    <div className="card w-full bg-base-100 shadow-xl">
+    <div className="card w-full bg-base-100 shadow-xl " data-aos="zoom-in-up">
 <figure><img src={productImg} alt={productName} className="h-60 w-full" /></figure>
 <div className="card-body">
  <h2 className="card-title">

@@ -25,7 +25,7 @@ export const Advertisements = () => {
 
   if (products.length > 0) {
     return (
-      <div className="pt-10 pb-2 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl ">
+      <div  className="pt-10 pb-2 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl ">
         <h2 className="text-center font-bold text-3xl md:text-4xl  my-10">
           Advertised Phone
         </h2>

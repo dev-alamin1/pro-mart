@@ -5,7 +5,7 @@ import {BsArrowRightCircleFill} from 'react-icons/bs'
 const Category = ({ cat }) => {
   const { _id, category_name, category_img, category_desc } = cat;
   return (
-    <div className="mt-5">
+    <div className="mt-5" >
       <div className="card w-full bg-base-100 shadow-xl">
         <figure>
           <img src={category_img} alt={category_name} className="h-60 w-4/5" />
