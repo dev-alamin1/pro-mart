@@ -29,7 +29,7 @@ export const Advertisements = () => {
         <h2 className="text-center font-bold text-3xl md:text-4xl  my-10">
           Advertised Phone
         </h2>
-        <div className="grid  gap-5 mb-8 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 sm:mx-auto w-full">
+        <div className="grid  gap-5 mb-8 mt-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 sm:mx-auto w-full">
           {products.map((pro) => (
             <Adds key={pro._id} pro={pro} setCategoryName={setCategoryName} />
           ))}

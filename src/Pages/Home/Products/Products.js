@@ -7,7 +7,6 @@ import ProductBookedModal from './ProductBookedModal';
 
 const Products = () => {
 
-    const {user,loading} = useContext(AuthContext)
     const products = useLoaderData();
     const [categoryName,setCategoryName] = useState([]);
     const [categoryDesc,setCategoryDesc] = useState([]);
@@ -64,7 +63,7 @@ const Products = () => {
             }
            
           </div>
-          <div className="grid  gap-5 mb-8 lg:grid-cols-2 sm:mx-auto ">
+          <div className="grid  gap-5 mb-8 lg:grid-cols-4 sm:mx-auto ">
            
            {
             products.length === 0 ? <Zero className="text-center">No product Available</Zero> :products.map(pro=>
@@ -74,11 +73,6 @@ const Products = () => {
   
           </div>
 
-           {/* booking modal */}
-           {
-             productFullInfo &&  <ProductBookedModal productFullInfo={productFullInfo} 
-             categoryName={categoryName} setProductFullInfo={setProductFullInfo} />
-           }
 
         </div>
       );

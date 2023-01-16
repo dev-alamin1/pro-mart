@@ -8,7 +8,7 @@ export const Newsletter = () => {
 
   return (
     <section>
-      <div className="">
+      <div className="h-[100vh]">
         <div className="container flex flex-col items-center  py-5 pb-5 mx-auto text-center lg:pb-56 md:py-32 md:px-10 lg:px-32 text-gray-900">
           <h1 className="text-5xl font-bold leading-none sm:text-6xl xl:max-w-4xl text-gray-900">
             Do you want to sell your phone?

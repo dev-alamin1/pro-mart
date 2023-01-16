@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Context/Authprovider";
 import { BiCheckCircle } from "react-icons/bi";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 const Product = ({
   pro,
   setCategoryName,
@@ -107,118 +108,24 @@ const Product = ({
 
   return (
 
-      <div className="card bg-base-100 shadow-xl md:w-[600px]">
-        <div className=" flex items-center justify-center">
-          <img src={productImg} alt="Shoes" className="h-80 w-full" />
-        </div>
-
-        <div className="card-body">
-          {/* product description */}
-          <div>
-            <div>
-              <h2 className="card-title">
-                {productName}
-                <div className="badge badge-secondary">Used</div>
-              </h2>
-
-              <div className="flex justify-between">
-                <small>
-                  Category:{" "}
-                  <span className="text-orange-500">{category_name}</span>
-                </small>
-                <small>
-                  Published On :{" "}
-                  <span className="text-orange-500">
-                    {postedOn ? postedOn.split("T")[0] : "Not found"}{" "}
-                  </span>{" "}
-                </small>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-1 mt-5">
-              {/* left side description */}
-              <div>
-                <p className=" text-gray-700">
-                  <span className="text-red-400 font-bold">Brand</span> :{" "}
-                  {brand}
-                </p>
-
-                <p className=" text-gray-700">
-                  <span className="text-red-400 font-bold">Original Price</span>{" "}
-                  : <small> {originalPrice}Tk</small> <br />{" "}
-                  <span className="text-orange-500 font-bold">
-                    Resale Price
-                  </span>{" "}
-                  : <small>{resalePrice}Tk</small>
-                </p>
-
-                <p className=" text-gray-700">
-                  <span className="text-red-400 font-bold">Purches Years </span>{" "}
-                  : {yearOfPurchase}
-                </p>
-
-                <p className=" text-gray-700">
-                  <span className="text-red-400 font-bold"> Condition </span> :{" "}
-                  {productCondition}
-                </p>
-
-                <p className="mb-2 text-gray-700  md:hidden">
-          <span className="text-red-400 font-bold">Location</span> : {location}
-        </p>
-
-                
-              </div>
-
-              {/* right side description */}
-              <div>
-
-              <p className="mb-2 text-gray-700">
-           <div className="flex items-center">
-           <span className="text-red-400 font-bold"> Seller Name </span> :
-          {` ${ sellerName?sellerName:'Not found'}`} <span>{sellerInfo?.verified === true && <BiCheckCircle className="text-blue-600 ml-1"/>}</span>
-            </div>    
-        </p>
-
-        <p className="mb-2 text-gray-700">
-          <span className="text-red-400 font-bold">Seller Mobile </span> :{" "}
-          {sellerMobile}
-        </p>
-
-        <p className="mb-2 text-gray-700">
-          <span className="text-red-400 font-bold">Seller Email </span> :{" "}
-          {sellerEmail}
-        </p>
-
-        <p className="mb-2 text-gray-700 hidden md:block">
-          <span className="text-red-400 font-bold">Location</span> : {location}
-        </p>
+    <div>
+    <div className="card w-full bg-base-100 shadow-xl">
+<figure><img src={productImg} alt={productName} className="h-60 w-full" /></figure>
+<div className="card-body">
+ <h2 className="card-title">
+   <small>{productName}</small>
+   <div className="badge badge-secondary">Used</div>
+ </h2>
+ {/* <p>Category : {category_name}</p> */}
+ <p>Price : {resalePrice}Tk</p>
+ <div className="card-actions justify-end">
+   <Link to={`/productId/${_id}`} className="bg-lime-300 px-2 py-1 rounded-md hover:bg-lime-400 hover:text-white">Details</Link>
+ </div>
+</div>
+</div>
 
 
-              </div>
-            </div>
-          </div>
-
-          <div>
-          <p className="mb-2 text-gray-700">
-          <span className="text-red-400 font-bold"> Description </span> :{" "}
-          {description}
-        </p>
-
-          </div>
-
-          <div className="card-actions justify-end">
-            <label
-              htmlFor="product-booked-modal"
-              onClick={() => setProductFullInfo(pro)}
-              className="btn btn-sm hover:bg-orange-600 hover:text-white"
-            >
-              Book Now
-            </label>
-
-            <button onClick={()=>reportToAdminHandler(pro)} className="btn btn-sm">Report</button>
-          </div>
-        </div>
-      </div>
+</div>
     
   );
 };

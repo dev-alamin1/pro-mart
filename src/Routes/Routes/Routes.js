@@ -49,7 +49,7 @@ const router = createBrowserRouter([
                 element:<Blog/>
             },
             {
-                path:'/advertiseId/:id',
+                path:'/productId/:id',
                 loader:({params})=>fetch(`https://pro-mart-server.vercel.app/addvertise/product/${params.id}`),
                 element:<AdvertisementDetails/>,
                
