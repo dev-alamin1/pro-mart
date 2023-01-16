@@ -3,6 +3,7 @@ import { AuthContext } from "../../../Context/Authprovider";
 import { BiCheckCircle } from "react-icons/bi";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { BsArrowRightCircleFill } from "react-icons/bs";
 const Adds = ({ pro, setProductFullInfo, setCategoryName }) => {
   // pro = product
   const {
@@ -54,10 +55,9 @@ const Adds = ({ pro, setProductFullInfo, setCategoryName }) => {
           <p>Price : {resalePrice}Tk</p>
           <div className="card-actions justify-end">
             <Link
-              to={`/productId/${_id}`}
-              className="bg-lime-300 px-2 py-1 rounded-md hover:bg-lime-400 hover:text-white"
-            >
-              Details
+              to={`/productId/${_id}`}>
+                <button className="transition ease-in-out delay-150 text-white px-2 py-1 rounded-md bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">Details <BsArrowRightCircleFill className="inline-block"/></button>
+             
             </Link>
           </div>
         </div>

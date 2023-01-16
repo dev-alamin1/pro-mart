@@ -3,6 +3,7 @@ import { Advertisements } from '../Advertisements/Advertisements';
 import { Banner } from '../Banner/Banner';
 import { Categories } from '../Categories/Categories';
 import { Newsletter } from '../Newsletter/Newsletter';
+import Reviews from '../Reviews/Reviews';
 
 
 const Home = () => {
@@ -11,7 +12,8 @@ const Home = () => {
             <Banner/>
             <Advertisements/>
             <Categories/>
-            <Newsletter/>
+            {/* <Newsletter/> */}
+            <Reviews/>
         </div>
     );
 };

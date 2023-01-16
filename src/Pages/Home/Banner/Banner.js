@@ -94,7 +94,7 @@ export const Banner = () => {
 
         {
           allPhones?.map((phone,index)=>{
-            return <SwiperSlide className="relative">
+            return <SwiperSlide className="relative w-1/6">
              
                   <img className="w-full md:w-1/2" src={phone.productImg} alt="" />
                   <h2 className="absolute top-3/4 md:text-3xl bg-yellow-400 rounded p-2"> {phone.productName} <div className="badge">{phone.resalePrice}Tk</div>  </h2>
